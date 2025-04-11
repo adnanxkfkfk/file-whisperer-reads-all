@@ -1,6 +1,5 @@
-
 import Layout from "@/components/Layout";
-import { Truck, Ship, Plane, Package, Warehouse, Clock, Shield, RefreshCw, Building, Home, HeavyFurniture, Building2, Server, HardDrive, Mail } from "lucide-react";
+import { Truck, Ship, Plane, Package, Warehouse, Clock, Shield, RefreshCw, Building, Home, Briefcase, Building2, Server, HardDrive, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -67,7 +66,7 @@ const services = [
   },
   {
     id: "heavy-furniture",
-    icon: <HeavyFurniture className="h-12 w-12 text-transport-900" />,
+    icon: <Briefcase className="h-12 w-12 text-transport-900" />,
     title: "Heavy Furniture & Godrej Locker Moving",
     description: "Expert handling of bulky and high-security items. Our team is trained to move heavy furniture and security lockers safely using the right equipment and techniques.",
     features: [

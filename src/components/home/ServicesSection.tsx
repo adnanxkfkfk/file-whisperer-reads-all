@@ -1,7 +1,7 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Truck, Ship, Plane, Package, ArrowRight, Building, Home, HeavyFurniture } from "lucide-react";
+import { Truck, Ship, Plane, Package, ArrowRight, Building, Home, Briefcase } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const services = [
@@ -24,7 +24,7 @@ const services = [
     link: "/services#office-moving"
   },
   {
-    icon: <HeavyFurniture className="h-10 w-10 text-transport-800" />,
+    icon: <Briefcase className="h-10 w-10 text-transport-800" />,
     title: "Heavy Furniture Moving",
     description: "Expert handling of bulky items including Godrej lockers with specialized equipment and trained staff.",
     link: "/services#heavy-furniture"
