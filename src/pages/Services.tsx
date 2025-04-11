@@ -1,44 +1,30 @@
+
 import Layout from "@/components/Layout";
-import { Truck, Ship, Plane, Package, Warehouse, Clock, Shield, RefreshCw, Building, Home, Briefcase, Building2, Server, HardDrive, Mail } from "lucide-react";
+import { Truck, Clock, Shield, RefreshCw, Building, Home, Briefcase, Building2, HardDrive, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
 const services = [
   {
-    id: "domestic-relocation",
+    id: "domestic-moving",
     icon: <Home className="h-12 w-12 text-transport-900" />,
-    title: "Domestic Relocation",
-    description: "Hassle-free household moves with professional handling. Our team ensures your belongings are packed, transported, and delivered with the utmost care.",
+    title: "Domestic Moving",
+    description: "Smooth and secure home relocations with professional handling. Our team ensures your belongings are packed, transported, and delivered with the utmost care.",
     features: [
       "Complete packing and unpacking services",
       "Furniture disassembly and reassembly",
       "Secure transportation of valuables",
-      "Pet relocation assistance",
+      "Protection of fragile items",
       "Storage solutions if needed",
       "Insurance coverage for peace of mind"
     ],
     image: "https://images.unsplash.com/photo-1600607686527-6fb886090705?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&h=600&q=80"
   },
   {
-    id: "transportation-services",
-    icon: <Truck className="h-12 w-12 text-transport-900" />,
-    title: "Transportation Services",
-    description: "Reliable and timely transport for various goods. With our modern fleet and experienced drivers, we ensure safe delivery of your items across destinations.",
-    features: [
-      "Full truckload (FTL) services",
-      "Less than truckload (LTL) options",
-      "Temperature-controlled transportation",
-      "Real-time shipment tracking",
-      "Express delivery options",
-      "Nationwide coverage"
-    ],
-    image: "https://images.unsplash.com/photo-1600706432774-bc9518b558cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&h=600&q=80"
-  },
-  {
     id: "office-moving",
     icon: <Building className="h-12 w-12 text-transport-900" />,
-    title: "Office Moving",
-    description: "Efficient office relocations with minimal downtime. We understand that time is money for businesses, which is why our office moving service is designed for speed and efficiency.",
+    title: "Office Relocation",
+    description: "Efficient and organized office shifting with minimal disruption. We understand that time is money for businesses, which is why our office moving service is designed for speed and efficiency.",
     features: [
       "After-hours and weekend moves",
       "IT equipment handling and setup",
@@ -50,39 +36,54 @@ const services = [
     image: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&h=600&q=80"
   },
   {
-    id: "lightweight-machinery",
-    icon: <Package className="h-12 w-12 text-transport-900" />,
-    title: "Lightweight Machinery Moving",
-    description: "Safe shifting of delicate machinery and equipment. Our specialized team handles technical equipment with the expertise required to prevent damage and ensure functionality.",
-    features: [
-      "Professional disassembly and reassembly",
-      "Custom crating solutions",
-      "Anti-static packaging materials",
-      "Calibration preservation measures",
-      "Technical handling expertise",
-      "Insurance for high-value equipment"
-    ],
-    image: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&h=600&q=80"
-  },
-  {
     id: "heavy-furniture",
     icon: <Briefcase className="h-12 w-12 text-transport-900" />,
-    title: "Heavy Furniture & Godrej Locker Moving",
-    description: "Expert handling of bulky and high-security items. Our team is trained to move heavy furniture and security lockers safely using the right equipment and techniques.",
+    title: "Heavy Furniture Moving",
+    description: "Safe transport of bulky items. Our team is specially trained to move heavy furniture using the right equipment and techniques to prevent damage to your items and property.",
     features: [
       "Specialized lifting equipment",
       "Trained heavy-item handlers",
-      "Secure transport of valuables",
+      "Proper padding and protection",
       "Proper placement at destination",
       "Protection of floors and doorways",
-      "Security-focused procedures for lockers"
+      "Experienced team for difficult items"
     ],
     image: "https://images.unsplash.com/photo-1567016432779-094069958ea5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&h=600&q=80"
   },
   {
+    id: "godrej-locker",
+    icon: <Shield className="h-12 w-12 text-transport-900" />,
+    title: "Godrej Locker & Safe Moving",
+    description: "Professional handling of heavy-duty security lockers. We have specialized equipment and training to move these sensitive items safely and securely.",
+    features: [
+      "Specialized heavy-duty equipment",
+      "Security-focused procedures",
+      "Trained safe-moving professionals",
+      "Proper anchoring and installation",
+      "Confidentiality and discretion",
+      "Insurance for high-value items"
+    ],
+    image: "https://images.unsplash.com/photo-1582139329536-e7284fece509?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&h=600&q=80"
+  },
+  {
+    id: "transportation-logistics",
+    icon: <Truck className="h-12 w-12 text-transport-900" />,
+    title: "Transportation & Logistics Services",
+    description: "Reliable road transport solutions across India, with a strong focus in Maharashtra. Our extensive network ensures your goods reach their destination safely and on time.",
+    features: [
+      "Full truck load services",
+      "Partial load options",
+      "Interstate transportation",
+      "Real-time shipment tracking",
+      "Express delivery options",
+      "Pan-India coverage"
+    ],
+    image: "https://images.unsplash.com/photo-1600706432774-bc9518b558cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&h=600&q=80"
+  },
+  {
     id: "psu-moving",
     icon: <Building2 className="h-12 w-12 text-transport-900" />,
-    title: "PSU Moving (Coming Soon)",
+    title: "PSU Relocation Services",
     description: "Trusted solutions for public sector unit relocations. Our upcoming service will cater specifically to the unique requirements of government and public sector organizations.",
     features: [
       "Adherence to government protocols",
@@ -98,7 +99,7 @@ const services = [
   {
     id: "supply-chain",
     icon: <HardDrive className="h-12 w-12 text-transport-900" />,
-    title: "Supply Chain Management (Coming Soon)",
+    title: "Supply Chain Management Solutions",
     description: "End-to-end logistics and supply chain services to support growing business needs. Our forthcoming service will help businesses optimize their entire supply chain.",
     features: [
       "Inventory management solutions",
@@ -142,9 +143,9 @@ const ServicesPage = () => {
         
         <div className="container relative">
           <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Our Transportation Services</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">Roadway Transportation & Logistics Services</h1>
             <p className="text-xl text-gray-300 mb-8">
-              Comprehensive logistics solutions designed to meet your specific transportation needs with reliability and efficiency.
+              Serving all over India, with a strong focus in Maharashtra. We provide reliable road transport solutions tailored to meet your specific moving needs.
             </p>
           </div>
         </div>
@@ -231,7 +232,7 @@ const ServicesPage = () => {
       {/* CTA Banner */}
       <section className="py-16 bg-transport-900 text-white">
         <div className="container text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Ship with Confidence?</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Transport with Confidence?</h2>
           <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
             Contact Farhan Transport today for reliable logistics solutions tailored to your business needs.
           </p>

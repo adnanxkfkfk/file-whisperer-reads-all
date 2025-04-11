@@ -1,33 +1,33 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Truck, Ship, Plane, Package, ArrowRight, Building, Home, Briefcase } from "lucide-react";
+import { Truck, ArrowRight, Building, Home, Briefcase, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const services = [
   {
     icon: <Home className="h-10 w-10 text-transport-800" />,
-    title: "Domestic Relocation",
-    description: "Hassle-free household moves with professional handling and secure transportation of your valuables.",
-    link: "/services#domestic-relocation"
-  },
-  {
-    icon: <Truck className="h-10 w-10 text-transport-800" />,
-    title: "Transportation Services",
-    description: "Reliable and timely transport for various goods with real-time tracking and nationwide coverage.",
-    link: "/services#transportation-services"
+    title: "Domestic Moving",
+    description: "Smooth and secure home relocations with professional handling and careful transport of your belongings.",
+    link: "/services#domestic-moving"
   },
   {
     icon: <Building className="h-10 w-10 text-transport-800" />,
-    title: "Office Moving",
-    description: "Efficient office relocations with minimal downtime and specialized equipment handling.",
+    title: "Office Relocation",
+    description: "Efficient and organized office shifting with minimal disruption to your business operations.",
     link: "/services#office-moving"
   },
   {
     icon: <Briefcase className="h-10 w-10 text-transport-800" />,
     title: "Heavy Furniture Moving",
-    description: "Expert handling of bulky items including Godrej lockers with specialized equipment and trained staff.",
+    description: "Safe transport of bulky items with specialized equipment and trained personnel.",
     link: "/services#heavy-furniture"
+  },
+  {
+    icon: <Shield className="h-10 w-10 text-transport-800" />,
+    title: "Godrej Locker & Safe Moving",
+    description: "Professional handling of heavy-duty security lockers with utmost care and security measures.",
+    link: "/services#godrej-locker"
   },
 ];
 
@@ -36,9 +36,9 @@ const ServicesSection = () => {
     <section className="section-padding bg-white" id="services">
       <div className="container">
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <h2 className="section-title">Our Transportation Services</h2>
+          <h2 className="section-title">Roadway Transportation & Logistics Services</h2>
           <p className="section-subtitle">
-            We provide comprehensive logistics solutions tailored to meet your specific transportation needs with reliability and efficiency.
+            Serving all over India, with a strong focus in Maharashtra. We provide reliable road transport solutions tailored to meet your specific moving needs.
           </p>
         </div>
         
