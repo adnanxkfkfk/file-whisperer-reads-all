@@ -1,33 +1,33 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Truck, Ship, Plane, Package, ArrowRight, ShieldCheck } from "lucide-react";
+import { Truck, Ship, Plane, Package, ArrowRight, Building, Home, HeavyFurniture } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const services = [
   {
+    icon: <Home className="h-10 w-10 text-transport-800" />,
+    title: "Domestic Relocation",
+    description: "Hassle-free household moves with professional handling and secure transportation of your valuables.",
+    link: "/services#domestic-relocation"
+  },
+  {
     icon: <Truck className="h-10 w-10 text-transport-800" />,
-    title: "Road Freight",
-    description: "Efficient and flexible road transportation for your goods across the country with real-time tracking.",
-    link: "/services#road-freight"
+    title: "Transportation Services",
+    description: "Reliable and timely transport for various goods with real-time tracking and nationwide coverage.",
+    link: "/services#transportation-services"
   },
   {
-    icon: <Ship className="h-10 w-10 text-transport-800" />,
-    title: "Ocean Freight",
-    description: "Reliable sea freight solutions for international shipping with comprehensive port-to-port service.",
-    link: "/services#ocean-freight"
+    icon: <Building className="h-10 w-10 text-transport-800" />,
+    title: "Office Moving",
+    description: "Efficient office relocations with minimal downtime and specialized equipment handling.",
+    link: "/services#office-moving"
   },
   {
-    icon: <Plane className="h-10 w-10 text-transport-800" />,
-    title: "Air Freight",
-    description: "Fast and secure air transportation for time-sensitive shipments to destinations worldwide.",
-    link: "/services#air-freight"
-  },
-  {
-    icon: <Package className="h-10 w-10 text-transport-800" />,
-    title: "Warehousing",
-    description: "Modern warehouse facilities with inventory management systems for efficient storage solutions.",
-    link: "/services#warehousing"
+    icon: <HeavyFurniture className="h-10 w-10 text-transport-800" />,
+    title: "Heavy Furniture Moving",
+    description: "Expert handling of bulky items including Godrej lockers with specialized equipment and trained staff.",
+    link: "/services#heavy-furniture"
   },
 ];
 

@@ -1,15 +1,30 @@
 
 import Layout from "@/components/Layout";
-import { Truck, Ship, Plane, Package, Warehouse, Clock, Shield, RefreshCw } from "lucide-react";
+import { Truck, Ship, Plane, Package, Warehouse, Clock, Shield, RefreshCw, Building, Home, HeavyFurniture, Building2, Server, HardDrive, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
 const services = [
   {
-    id: "road-freight",
+    id: "domestic-relocation",
+    icon: <Home className="h-12 w-12 text-transport-900" />,
+    title: "Domestic Relocation",
+    description: "Hassle-free household moves with professional handling. Our team ensures your belongings are packed, transported, and delivered with the utmost care.",
+    features: [
+      "Complete packing and unpacking services",
+      "Furniture disassembly and reassembly",
+      "Secure transportation of valuables",
+      "Pet relocation assistance",
+      "Storage solutions if needed",
+      "Insurance coverage for peace of mind"
+    ],
+    image: "https://images.unsplash.com/photo-1600607686527-6fb886090705?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&h=600&q=80"
+  },
+  {
+    id: "transportation-services",
     icon: <Truck className="h-12 w-12 text-transport-900" />,
-    title: "Road Freight",
-    description: "Our road freight services offer flexible and efficient transportation solutions across the country. With our modern fleet of trucks and experienced drivers, we ensure safe and timely delivery of your goods.",
+    title: "Transportation Services",
+    description: "Reliable and timely transport for various goods. With our modern fleet and experienced drivers, we ensure safe delivery of your items across destinations.",
     features: [
       "Full truckload (FTL) services",
       "Less than truckload (LTL) options",
@@ -21,49 +36,81 @@ const services = [
     image: "https://images.unsplash.com/photo-1600706432774-bc9518b558cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&h=600&q=80"
   },
   {
-    id: "ocean-freight",
-    icon: <Ship className="h-12 w-12 text-transport-900" />,
-    title: "Ocean Freight",
-    description: "Our ocean freight services connect you to global markets with reliable and cost-effective shipping solutions. We handle all aspects of sea freight logistics to ensure smooth international transportation.",
+    id: "office-moving",
+    icon: <Building className="h-12 w-12 text-transport-900" />,
+    title: "Office Moving",
+    description: "Efficient office relocations with minimal downtime. We understand that time is money for businesses, which is why our office moving service is designed for speed and efficiency.",
     features: [
-      "FCL (Full Container Load) shipping",
-      "LCL (Less than Container Load) options",
-      "Port-to-port and door-to-door delivery",
-      "Custom clearance assistance",
-      "Container tracking services",
-      "Comprehensive insurance coverage"
+      "After-hours and weekend moves",
+      "IT equipment handling and setup",
+      "Furniture installation services",
+      "Document and file management",
+      "Specialized equipment transport",
+      "Project management from start to finish"
     ],
-    image: "https://images.unsplash.com/photo-1494412651409-8963ce7935a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&h=600&q=80"
+    image: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&h=600&q=80"
   },
   {
-    id: "air-freight",
-    icon: <Plane className="h-12 w-12 text-transport-900" />,
-    title: "Air Freight",
-    description: "When speed is crucial, our air freight services provide the fastest transportation solution for your time-sensitive shipments. We work with leading airlines to ensure reliable and efficient air cargo services.",
+    id: "lightweight-machinery",
+    icon: <Package className="h-12 w-12 text-transport-900" />,
+    title: "Lightweight Machinery Moving",
+    description: "Safe shifting of delicate machinery and equipment. Our specialized team handles technical equipment with the expertise required to prevent damage and ensure functionality.",
     features: [
-      "Express air freight services",
-      "Consolidation services",
-      "Door-to-airport and door-to-door options",
-      "Dangerous goods handling",
-      "Temperature-sensitive cargo handling",
-      "Customs clearance assistance"
+      "Professional disassembly and reassembly",
+      "Custom crating solutions",
+      "Anti-static packaging materials",
+      "Calibration preservation measures",
+      "Technical handling expertise",
+      "Insurance for high-value equipment"
     ],
-    image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&h=600&q=80"
+    image: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&h=600&q=80"
   },
   {
-    id: "warehousing",
-    icon: <Warehouse className="h-12 w-12 text-transport-900" />,
-    title: "Warehousing & Distribution",
-    description: "Our modern warehousing facilities offer secure storage solutions with advanced inventory management systems. We provide end-to-end distribution services to streamline your supply chain.",
+    id: "heavy-furniture",
+    icon: <HeavyFurniture className="h-12 w-12 text-transport-900" />,
+    title: "Heavy Furniture & Godrej Locker Moving",
+    description: "Expert handling of bulky and high-security items. Our team is trained to move heavy furniture and security lockers safely using the right equipment and techniques.",
     features: [
-      "Short and long-term storage options",
-      "Inventory management",
+      "Specialized lifting equipment",
+      "Trained heavy-item handlers",
+      "Secure transport of valuables",
+      "Proper placement at destination",
+      "Protection of floors and doorways",
+      "Security-focused procedures for lockers"
+    ],
+    image: "https://images.unsplash.com/photo-1567016432779-094069958ea5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&h=600&q=80"
+  },
+  {
+    id: "psu-moving",
+    icon: <Building2 className="h-12 w-12 text-transport-900" />,
+    title: "PSU Moving (Coming Soon)",
+    description: "Trusted solutions for public sector unit relocations. Our upcoming service will cater specifically to the unique requirements of government and public sector organizations.",
+    features: [
+      "Adherence to government protocols",
+      "Security clearance compliant staff",
+      "Confidential document handling",
+      "Asset tracking and management",
+      "Compliance with procurement procedures",
+      "Dedicated project coordinator"
+    ],
+    image: "https://images.unsplash.com/photo-1616969233918-4a0c3a912518?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&h=600&q=80",
+    comingSoon: true
+  },
+  {
+    id: "supply-chain",
+    icon: <HardDrive className="h-12 w-12 text-transport-900" />,
+    title: "Supply Chain Management (Coming Soon)",
+    description: "End-to-end logistics and supply chain services to support growing business needs. Our forthcoming service will help businesses optimize their entire supply chain.",
+    features: [
+      "Inventory management solutions",
+      "Distribution network optimization",
+      "Warehouse management",
       "Order fulfillment services",
-      "Cross-docking capabilities",
-      "Climate-controlled storage",
-      "24/7 security monitoring"
+      "Returns processing",
+      "Analytics and reporting"
     ],
-    image: "https://images.unsplash.com/photo-1553413077-190dd305871c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&h=600&q=80"
+    image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&h=600&q=80",
+    comingSoon: true
   }
 ];
 
@@ -148,7 +195,14 @@ const ServicesPage = () => {
                 
                 <div className={`order-1 ${index % 2 === 1 ? "md:order-2" : "md:order-1"}`}>
                   <div className="mb-6">{service.icon}</div>
-                  <h2 className="text-3xl font-bold mb-4 text-transport-900">{service.title}</h2>
+                  <h2 className="text-3xl font-bold mb-4 text-transport-900">
+                    {service.title}
+                    {service.comingSoon && (
+                      <span className="ml-2 text-sm font-medium bg-accent text-black px-2 py-1 rounded align-top">
+                        Coming Soon
+                      </span>
+                    )}
+                  </h2>
                   <p className="text-gray-700 mb-6">{service.description}</p>
                   
                   <div className="mb-8">
@@ -182,13 +236,29 @@ const ServicesPage = () => {
           <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
             Contact Farhan Transport today for reliable logistics solutions tailored to your business needs.
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="flex flex-col md:flex-row justify-center gap-4 mb-8">
             <Button asChild className="bg-accent text-black hover:bg-accent/90" size="lg">
               <Link to="/contact">Contact Us</Link>
             </Button>
             <Button asChild variant="outline" className="border-white text-white hover:bg-white/10" size="lg">
               <Link to="/tracking">Track Shipment</Link>
             </Button>
+          </div>
+          
+          {/* Contact details */}
+          <div className="flex justify-center flex-wrap gap-6 mt-4">
+            <div className="flex items-center gap-2 text-gray-300">
+              <Mail size={16} />
+              <a href="mailto:support@Farhantransportservice.com" className="hover:text-accent transition-colors">
+                support@Farhantransportservice.com
+              </a>
+            </div>
+            <div className="flex items-center gap-2 text-gray-300">
+              <Mail size={16} />
+              <a href="mailto:query@Farhantransportservice.com" className="hover:text-accent transition-colors">
+                query@Farhantransportservice.com
+              </a>
+            </div>
           </div>
         </div>
       </section>
