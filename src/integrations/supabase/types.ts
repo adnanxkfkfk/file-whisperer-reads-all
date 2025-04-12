@@ -9,13 +9,101 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      bookings: {
+        Row: {
+          address_line1: string
+          address_line2: string | null
+          address_line3: string | null
+          approximate_weight: number | null
+          created_at: string
+          destination_pincode: string
+          email: string
+          full_name: string
+          id: string
+          is_mobile_verified: boolean | null
+          mobile_number: string
+          num_packages: number
+          origin_pincode: string
+          pickup_datetime: string
+          service_type_id: number | null
+          status: string | null
+        }
+        Insert: {
+          address_line1: string
+          address_line2?: string | null
+          address_line3?: string | null
+          approximate_weight?: number | null
+          created_at?: string
+          destination_pincode: string
+          email: string
+          full_name: string
+          id?: string
+          is_mobile_verified?: boolean | null
+          mobile_number: string
+          num_packages: number
+          origin_pincode: string
+          pickup_datetime: string
+          service_type_id?: number | null
+          status?: string | null
+        }
+        Update: {
+          address_line1?: string
+          address_line2?: string | null
+          address_line3?: string | null
+          approximate_weight?: number | null
+          created_at?: string
+          destination_pincode?: string
+          email?: string
+          full_name?: string
+          id?: string
+          is_mobile_verified?: boolean | null
+          mobile_number?: string
+          num_packages?: number
+          origin_pincode?: string
+          pickup_datetime?: string
+          service_type_id?: number | null
+          status?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bookings_service_type_id_fkey"
+            columns: ["service_type_id"]
+            isOneToOne: false
+            referencedRelation: "service_types"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      service_types: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: number
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: number
+          name: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: number
+          name?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      verify_otp: {
+        Args: { phone: string; otp: string }
+        Returns: boolean
+      }
     }
     Enums: {
       [_ in never]: never
