@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/input-otp";
 import { useToast } from "@/hooks/use-toast";
 import { AlertCircle, Loader2, CheckCircle2 } from "lucide-react";
+import { simpleEncrypt } from "@/utils/encryption";
 
 interface OtpVerificationProps {
   phoneNumber: string;
@@ -21,26 +22,6 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
   const [sendingOtp, setSendingOtp] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
   const { toast } = useToast();
-
-  // Improved encryption functions using more secure Base64 handling
-  const base64UrlEncode = (str: string): string => {
-    return window.btoa(encodeURIComponent(str))
-      .replace(/\+/g, '-')
-      .replace(/\//g, '_')
-      .replace(/=+$/, '');
-  };
-
-  const base64UrlDecode = (str: string): string => {
-    str = str.replace(/-/g, '+').replace(/_/g, '/');
-    while (str.length % 4) {
-      str += '=';
-    }
-    return decodeURIComponent(window.atob(str));
-  };
-
-  const simpleEncrypt = (data: any): string => {
-    return base64UrlEncode(JSON.stringify(data));
-  };
 
   const sendOtp = async () => {
     if (!phoneNumber || phoneNumber.length < 10) {
