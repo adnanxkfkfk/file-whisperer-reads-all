@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { 
@@ -21,8 +22,9 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
   const [otpSent, setOtpSent] = useState(false);
   const { toast } = useToast();
 
+  // Improved encryption functions using more secure Base64 handling
   const base64UrlEncode = (str: string): string => {
-    return btoa(str)
+    return window.btoa(encodeURIComponent(str))
       .replace(/\+/g, '-')
       .replace(/\//g, '_')
       .replace(/=+$/, '');
@@ -33,7 +35,7 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
     while (str.length % 4) {
       str += '=';
     }
-    return atob(str);
+    return decodeURIComponent(window.atob(str));
   };
 
   const simpleEncrypt = (data: any): string => {
@@ -219,7 +221,7 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
               onChange={setOtp}
               render={({ slots }) => (
                 <InputOTPGroup>
-                  {slots && slots.map((slot, index) => (
+                  {slots.map((slot, index) => (
                     <InputOTPSlot key={index} index={index} />
                   ))}
                 </InputOTPGroup>

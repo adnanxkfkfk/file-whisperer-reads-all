@@ -45,7 +45,6 @@ const InputOTPSlot = React.forwardRef<
   // Add safety check to handle undefined or missing slots with proper typing
   const slot = (inputOTPContext?.slots?.[index] || {}) as OTPSlot
   
-  // Provide default values for the destructured properties
   const char = slot.char || ""
   const hasFakeCaret = !!slot.hasFakeCaret
   const isActive = !!slot.isActive
@@ -60,7 +59,8 @@ const InputOTPSlot = React.forwardRef<
       )}
       {...props}
     >
-      {char}
+      {/* Changed text color to purple for OTP numbers */}
+      <span className="text-9b87f5 font-semibold">{char}</span>
       {hasFakeCaret && (
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
           <div className="h-4 w-px animate-caret-blink bg-foreground duration-1000" />
