@@ -37,7 +37,11 @@ const InputOTPSlot = React.forwardRef<
   
   // Add safety check to handle undefined or missing slots
   const slot = inputOTPContext?.slots?.[index] || {}
-  const { char, hasFakeCaret, isActive } = slot
+  
+  // Provide default values for the destructured properties
+  const char = slot.char || ""
+  const hasFakeCaret = !!slot.hasFakeCaret
+  const isActive = !!slot.isActive
 
   return (
     <div

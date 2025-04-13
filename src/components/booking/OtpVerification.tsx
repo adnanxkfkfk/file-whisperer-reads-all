@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { 
@@ -22,7 +21,6 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
   const [otpSent, setOtpSent] = useState(false);
   const { toast } = useToast();
 
-  // Simpler base64url encoding/decoding
   const base64UrlEncode = (str: string): string => {
     return btoa(str)
       .replace(/\+/g, '-')
@@ -38,10 +36,7 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
     return atob(str);
   };
 
-  // Simple encryption for compatibility with the PHP implementation
   const simpleEncrypt = (data: any): string => {
-    // This is a placeholder that creates base64-encoded JSON
-    // to match the expected format by the server
     return base64UrlEncode(JSON.stringify(data));
   };
 
@@ -58,14 +53,12 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
     setSendingOtp(true);
 
     try {
-      // Use simpler encryption approach that's compatible with the PHP endpoint
       const payload = {
         data: simpleEncrypt({ phone: phoneNumber })
       };
 
       console.log("Sending OTP request with payload:", payload);
       
-      // Add CORS headers to the request
       const response = await fetch("https://aqualemur.onpella.app/otp", {
         method: "POST",
         headers: {
@@ -97,7 +90,6 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
     } catch (error) {
       console.error("Error sending OTP:", error);
       
-      // In development, allow proceeding even if OTP service is unavailable
       if (import.meta.env.DEV) {
         toast({
           title: "Development Mode",
@@ -129,7 +121,6 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
     setLoading(true);
 
     try {
-      // In development, allow any OTP
       if (import.meta.env.DEV) {
         toast({
           title: "Development Mode",
