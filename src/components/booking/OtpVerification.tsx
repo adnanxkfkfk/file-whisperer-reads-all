@@ -228,8 +228,8 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
               onChange={setOtp}
               render={({ slots }) => (
                 <InputOTPGroup>
-                  {slots.map((slot, index) => (
-                    <InputOTPSlot key={index} index={index} {...slot} />
+                  {slots && slots.map((slot, index) => (
+                    <InputOTPSlot key={index} index={index} />
                   ))}
                 </InputOTPGroup>
               )}
