@@ -5,6 +5,13 @@ import { Dot } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
+// Define an interface for the slot properties
+interface OTPSlot {
+  char?: string;
+  hasFakeCaret?: boolean;
+  isActive?: boolean;
+}
+
 const InputOTP = React.forwardRef<
   React.ElementRef<typeof OTPInput>,
   React.ComponentPropsWithoutRef<typeof OTPInput>
@@ -35,8 +42,8 @@ const InputOTPSlot = React.forwardRef<
 >(({ index, className, ...props }, ref) => {
   const inputOTPContext = React.useContext(OTPInputContext)
   
-  // Add safety check to handle undefined or missing slots
-  const slot = inputOTPContext?.slots?.[index] || {}
+  // Add safety check to handle undefined or missing slots with proper typing
+  const slot = (inputOTPContext?.slots?.[index] || {}) as OTPSlot
   
   // Provide default values for the destructured properties
   const char = slot.char || ""
