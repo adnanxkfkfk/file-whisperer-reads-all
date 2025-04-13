@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { 
@@ -8,7 +7,6 @@ import {
 } from "@/components/ui/input-otp";
 import { useToast } from "@/hooks/use-toast";
 import { AlertCircle, Loader2, CheckCircle2 } from "lucide-react";
-import { simpleEncrypt } from "@/utils/encryption";
 
 interface OtpVerificationProps {
   phoneNumber: string;
@@ -23,6 +21,10 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
   const [otpSent, setOtpSent] = useState(false);
   const { toast } = useToast();
 
+  const formatPhone = (phone: string) => {
+    return phone.replace(/\D/g, '');
+  };
+
   const sendOtp = async () => {
     if (!phoneNumber || phoneNumber.length < 10) {
       toast({
@@ -36,11 +38,9 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
     setSendingOtp(true);
 
     try {
-      const payload = {
-        data: simpleEncrypt({ phone: phoneNumber })
-      };
-
-      console.log("Sending OTP request with payload:", payload);
+      const formattedPhone = formatPhone(phoneNumber);
+      
+      console.log("Sending OTP request with phone:", formattedPhone);
       
       const response = await fetch("https://aqualemur.onpella.app/otp", {
         method: "POST",
@@ -49,15 +49,18 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
           "Accept": "application/json",
           "Origin": window.location.origin,
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ phone: formattedPhone }),
       });
 
       console.log("OTP response status:", response.status);
       
       if (response.ok) {
+        const result = await response.json();
+        console.log("OTP API response:", result);
+        
         toast({
           title: "OTP Sent",
-          description: "A verification code has been sent to your mobile number.",
+          description: "A verification code has been sent to your WhatsApp number.",
         });
         setOtpSent(true);
       } else {
@@ -113,11 +116,9 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
         return;
       }
       
-      const payload = {
-        data: simpleEncrypt({ phone: phoneNumber, otp })
-      };
-
-      console.log("Sending verification request with payload:", payload);
+      const formattedPhone = formatPhone(phoneNumber);
+      
+      console.log("Sending verification request with data:", { phone: formattedPhone, otp });
       
       const response = await fetch("https://aqualemur.onpella.app/verify", {
         method: "POST",
@@ -126,16 +127,16 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
           "Accept": "application/json",
           "Origin": window.location.origin,
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ phone: formattedPhone, otp }),
       });
 
       console.log("Verification response status:", response.status);
       
       if (response.ok) {
         const result = await response.json();
-        console.log("Verification response:", result);
+        console.log("Verification API response:", result);
         
-        if (result && result.success === true) {
+        if (result && result.verified === true) {
           toast({
             title: "Phone Verified",
             description: "Your phone number has been successfully verified.",
@@ -144,7 +145,7 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
         } else {
           toast({
             title: "Verification Failed",
-            description: "The code you entered is incorrect. Please try again.",
+            description: result.error || "The code you entered is incorrect. Please try again.",
             variant: "destructive",
           });
         }
@@ -172,10 +173,10 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
 
   return (
     <div className="flex flex-col items-center justify-center space-y-6 p-4">
-      <h2 className="text-2xl font-bold text-center">Phone Verification</h2>
+      <h2 className="text-2xl font-bold text-center">WhatsApp Verification</h2>
       
       <div className="text-center">
-        <p>We need to verify your phone number:</p>
+        <p>We need to verify your WhatsApp number:</p>
         <p className="font-semibold mt-2">{phoneNumber}</p>
       </div>
       
@@ -190,12 +191,12 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               Sending...
             </>
-          ) : "Send Verification Code"}
+          ) : "Send WhatsApp Code"}
         </Button>
       ) : (
         <div className="w-full max-w-xs space-y-4">
           <div className="flex flex-col items-center space-y-2">
-            <label className="text-sm font-medium">Enter verification code</label>
+            <label className="text-sm font-medium">Enter verification code from WhatsApp</label>
             <InputOTP 
               maxLength={6}
               value={otp} 
