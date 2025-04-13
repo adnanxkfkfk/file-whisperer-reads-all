@@ -1,13 +1,12 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useToast } from "@/hooks/use-toast";
 import { 
   InputOTP, 
   InputOTPGroup, 
   InputOTPSlot 
 } from "@/components/ui/input-otp";
+import { useToast } from "@/hooks/use-toast";
 
 interface OtpVerificationProps {
   phoneNumber: string;
@@ -21,6 +20,136 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
   const [sendingOtp, setSendingOtp] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
   const { toast } = useToast();
+
+  // Encryption functions matching the PHP implementation
+  const base64urlEncode = (data: ArrayBuffer): string => {
+    return btoa(String.fromCharCode(...new Uint8Array(data)))
+      .replace(/\+/g, '-')
+      .replace(/\//g, '_')
+      .replace(/=+$/, '');
+  };
+
+  const base64urlDecode = (str: string): ArrayBuffer => {
+    str = str.replace(/-/g, '+').replace(/_/g, '/');
+    while (str.length % 4) {
+      str += '=';
+    }
+    const binary = atob(str);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) {
+      bytes[i] = binary.charCodeAt(i);
+    }
+    return bytes.buffer;
+  };
+
+  const encryptData = async (data: any): Promise<string> => {
+    // Use the same password and salt as in PHP
+    const password = "adnan";
+    const salt = "otp_salt";
+    
+    // Generate key from password and salt
+    const encoder = new TextEncoder();
+    const keyMaterial = await window.crypto.subtle.importKey(
+      "raw",
+      encoder.encode(password),
+      { name: "PBKDF2" },
+      false,
+      ["deriveBits", "deriveKey"]
+    );
+    
+    const key = await window.crypto.subtle.deriveKey(
+      {
+        name: "PBKDF2",
+        salt: encoder.encode(salt),
+        iterations: 1000,
+        hash: "SHA-256",
+      },
+      keyMaterial,
+      { name: "AES-GCM", length: 256 },
+      false,
+      ["encrypt"]
+    );
+    
+    // Generate random IV
+    const iv = window.crypto.getRandomValues(new Uint8Array(12));
+    
+    // Encrypt the data
+    const jsonData = JSON.stringify(data);
+    const encryptedData = await window.crypto.subtle.encrypt(
+      {
+        name: "AES-GCM",
+        iv,
+        tagLength: 128,
+      },
+      key,
+      encoder.encode(jsonData)
+    );
+    
+    // Combine IV and encrypted data (similar to PHP implementation)
+    const combined = new Uint8Array(iv.length + encryptedData.byteLength);
+    combined.set(iv);
+    combined.set(new Uint8Array(encryptedData), iv.length);
+    
+    // Encode to base64url
+    return base64urlEncode(combined);
+  };
+
+  const decryptData = async (encryptedText: string): Promise<any> => {
+    try {
+      // Use the same password and salt as in PHP
+      const password = "adnan";
+      const salt = "otp_salt";
+      
+      // Generate key from password and salt
+      const encoder = new TextEncoder();
+      const keyMaterial = await window.crypto.subtle.importKey(
+        "raw",
+        encoder.encode(password),
+        { name: "PBKDF2" },
+        false,
+        ["deriveBits", "deriveKey"]
+      );
+      
+      const key = await window.crypto.subtle.deriveKey(
+        {
+          name: "PBKDF2",
+          salt: encoder.encode(salt),
+          iterations: 1000,
+          hash: "SHA-256",
+        },
+        keyMaterial,
+        { name: "AES-GCM", length: 256 },
+        false,
+        ["decrypt"]
+      );
+      
+      // Decode the base64url string
+      const encryptedBuffer = base64urlDecode(encryptedText);
+      
+      // Extract IV (first 12 bytes) and ciphertext
+      const iv = encryptedBuffer.slice(0, 12);
+      const ciphertext = encryptedBuffer.slice(12);
+      
+      // Decrypt
+      const decryptedBuffer = await window.crypto.subtle.decrypt(
+        {
+          name: "AES-GCM",
+          iv: new Uint8Array(iv),
+          tagLength: 128,
+        },
+        key,
+        ciphertext
+      );
+      
+      // Convert to string and parse JSON
+      const decoder = new TextDecoder();
+      const jsonStr = decoder.decode(decryptedBuffer);
+      return JSON.parse(jsonStr);
+    } catch (error) {
+      console.error("Decryption error:", error);
+      return null;
+    }
+  };
 
   const sendOtp = async () => {
     if (!phoneNumber || phoneNumber.length < 10) {
@@ -52,6 +181,8 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
         });
         setOtpSent(true);
       } else {
+        const errorData = await response.text();
+        console.error("Error response:", errorData);
         toast({
           title: "Failed to Send OTP",
           description: "There was an issue sending the verification code. Please try again.",
@@ -59,12 +190,12 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
         });
       }
     } catch (error) {
+      console.error("Error sending OTP:", error);
       toast({
         title: "Error",
         description: "An unexpected error occurred. Please try again.",
         variant: "destructive",
       });
-      console.error("Error sending OTP:", error);
     } finally {
       setSendingOtp(false);
     }
@@ -93,16 +224,46 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
         body: JSON.stringify({ data: encryptedData }),
       });
 
-      const result = await response.json();
+      const responseText = await response.text();
+      console.log("API Response:", responseText);
+      
+      let result;
+      try {
+        result = JSON.parse(responseText);
+      } catch (e) {
+        console.error("Failed to parse JSON response:", e);
+        toast({
+          title: "Verification Failed",
+          description: "Invalid response from server.",
+          variant: "destructive",
+        });
+        setLoading(false);
+        return;
+      }
       
       if (response.ok && result.data) {
-        const decryptedResult = await decryptData(result.data);
-        if (decryptedResult && decryptedResult.verified === true) {
-          onVerificationSuccess();
-        } else {
+        try {
+          const decryptedResult = await decryptData(result.data);
+          console.log("Decrypted result:", decryptedResult);
+          
+          if (decryptedResult && decryptedResult.verified === true) {
+            toast({
+              title: "Phone Verified",
+              description: "Your phone number has been successfully verified.",
+            });
+            onVerificationSuccess();
+          } else {
+            toast({
+              title: "Verification Failed",
+              description: "The code you entered is incorrect. Please try again.",
+              variant: "destructive",
+            });
+          }
+        } catch (error) {
+          console.error("Error decrypting result:", error);
           toast({
             title: "Verification Failed",
-            description: "The code you entered is incorrect. Please try again.",
+            description: "Error processing verification response.",
             variant: "destructive",
           });
         }
@@ -114,33 +275,14 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
         });
       }
     } catch (error) {
+      console.error("Error verifying OTP:", error);
       toast({
         title: "Error",
         description: "An unexpected error occurred. Please try again.",
         variant: "destructive",
       });
-      console.error("Error verifying OTP:", error);
     } finally {
       setLoading(false);
-    }
-  };
-
-  // Simplified encryption function for demo purposes
-  // In production, use a proper encryption library
-  const encryptData = async (data: any) => {
-    // This is a simplified encryption for demo 
-    // In production, implement proper encryption
-    return btoa(JSON.stringify(data));
-  };
-
-  const decryptData = async (data: string) => {
-    // This is a simplified decryption for demo
-    // In production, implement proper decryption
-    try {
-      return JSON.parse(atob(data));
-    } catch (e) {
-      console.error("Failed to decrypt data:", e);
-      return null;
     }
   };
 
