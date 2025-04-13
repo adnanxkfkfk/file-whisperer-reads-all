@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -31,6 +30,11 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { 
+  Dialog,
+  DialogContent,
+  DialogOverlay
+} from "@/components/ui/dialog";
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
@@ -182,255 +186,257 @@ const BookingForm = () => {
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-6">
-      {showVerification ? (
-        <OtpVerification 
-          phoneNumber={form.getValues("mobileNumber")}
-          onVerificationSuccess={handleVerificationSuccess}
-          onCancel={() => setShowVerification(false)}
-        />
-      ) : (
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <h2 className="text-xl font-semibold mb-4">Personal Information</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <FormField
-                control={form.control}
-                name="fullName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Full Name *</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter customer or consignor's name" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              
-              <div className="flex items-end space-x-2">
-                <FormField
-                  control={form.control}
-                  name="mobileNumber"
-                  render={({ field }) => (
-                    <FormItem className="flex-1">
-                      <FormLabel>Mobile Number *</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Enter a valid mobile number" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button
-                  type="button"
-                  onClick={handleVerifyClick}
-                  className={`mb-0.5 ${isVerified ? "bg-green-600" : ""}`}
-                  disabled={isVerified}
-                >
-                  {isVerified ? "Verified" : "Verify"}
-                </Button>
-              </div>
-              
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email Address *</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter a valid email address" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              
-              <FormField
-                control={form.control}
-                name="serviceTypeId"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Service Type *</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select a service type" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {serviceTypes?.map((type) => (
-                          <SelectItem key={type.id} value={type.id.toString()}>
-                            {type.name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+      <Dialog open={showVerification} onOpenChange={setShowVerification}>
+        <DialogContent className="sm:max-w-md">
+          <OtpVerification 
+            phoneNumber={form.getValues("mobileNumber")}
+            onVerificationSuccess={handleVerificationSuccess}
+            onCancel={() => setShowVerification(false)}
+          />
+        </DialogContent>
+      </Dialog>
 
-            <h2 className="text-xl font-semibold mb-4 pt-4">Package Details</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <FormField
-                control={form.control}
-                name="numPackages"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Number of Packages *</FormLabel>
-                    <FormControl>
-                      <Input type="number" placeholder="Enter total number of packages" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              
-              <FormField
-                control={form.control}
-                name="approximateWeight"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Approximate Weight (Kg)</FormLabel>
-                    <FormControl>
-                      <Input type="number" placeholder="Enter total weight in kilograms" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <h2 className="text-xl font-semibold mb-4">Personal Information</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <FormField
+              control={form.control}
+              name="fullName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Full Name *</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Enter customer or consignor's name" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             
-            <h2 className="text-xl font-semibold mb-4 pt-4">Pickup & Delivery Information</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="flex items-end space-x-2">
               <FormField
                 control={form.control}
-                name="originPincode"
+                name="mobileNumber"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Origin Pincode *</FormLabel>
+                  <FormItem className="flex-1">
+                    <FormLabel>Mobile Number *</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter origin area pincode" {...field} />
+                      <Input placeholder="Enter a valid mobile number" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              
-              <FormField
-                control={form.control}
-                name="destinationPincode"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Destination Pincode *</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter destination area pincode" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              
-              <FormField
-                control={form.control}
-                name="pickupDate"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>Preferred Pickup Date *</FormLabel>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            variant={"outline"}
-                            className={cn(
-                              "w-full pl-3 text-left font-normal",
-                              !field.value && "text-muted-foreground"
-                            )}
-                          >
-                            {field.value ? (
-                              format(field.value, "PPP")
-                            ) : (
-                              <span>Pick a date</span>
-                            )}
-                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={field.value}
-                          onSelect={field.onChange}
-                          disabled={(date) => date < new Date()}
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            
-            <h2 className="text-xl font-semibold mb-4 pt-4">Address Details</h2>
-            <div className="space-y-4">
-              <FormField
-                control={form.control}
-                name="addressLine1"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Address Line 1 *</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Street address, building, etc." {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              
-              <FormField
-                control={form.control}
-                name="addressLine2"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Address Line 2</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Apartment, suite, unit, etc." {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              
-              <FormField
-                control={form.control}
-                name="addressLine3"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Address Line 3</FormLabel>
-                    <FormControl>
-                      <Textarea placeholder="Landmark or additional directions" className="resize-none" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            
-            <div className="pt-4">
-              <Button 
-                type="submit" 
-                size="lg" 
-                className="w-full bg-transport-900 hover:bg-transport-800"
-                disabled={createBooking.isPending}
+              <Button
+                type="button"
+                onClick={handleVerifyClick}
+                className={`mb-0.5 ${isVerified ? "bg-green-600 hover:bg-green-700" : ""}`}
+                disabled={isVerified}
               >
-                {createBooking.isPending ? "Submitting..." : "Book Now"}
+                {isVerified ? "Verified" : "Verify"}
               </Button>
             </div>
-          </form>
-        </Form>
-      )}
+            
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email Address *</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Enter a valid email address" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            
+            <FormField
+              control={form.control}
+              name="serviceTypeId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Service Type *</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a service type" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {serviceTypes?.map((type) => (
+                        <SelectItem key={type.id} value={type.id.toString()}>
+                          {type.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <h2 className="text-xl font-semibold mb-4 pt-4">Package Details</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <FormField
+              control={form.control}
+              name="numPackages"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Number of Packages *</FormLabel>
+                  <FormControl>
+                    <Input type="number" placeholder="Enter total number of packages" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            
+            <FormField
+              control={form.control}
+              name="approximateWeight"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Approximate Weight (Kg)</FormLabel>
+                  <FormControl>
+                    <Input type="number" placeholder="Enter total weight in kilograms" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          
+          <h2 className="text-xl font-semibold mb-4 pt-4">Pickup & Delivery Information</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <FormField
+              control={form.control}
+              name="originPincode"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Origin Pincode *</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Enter origin area pincode" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            
+            <FormField
+              control={form.control}
+              name="destinationPincode"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Destination Pincode *</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Enter destination area pincode" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            
+            <FormField
+              control={form.control}
+              name="pickupDate"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel>Preferred Pickup Date *</FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant={"outline"}
+                          className={cn(
+                            "w-full pl-3 text-left font-normal",
+                            !field.value && "text-muted-foreground"
+                          )}
+                        >
+                          {field.value ? (
+                            format(field.value, "PPP")
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        disabled={(date) => date < new Date()}
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          
+          <h2 className="text-xl font-semibold mb-4 pt-4">Address Details</h2>
+          <div className="space-y-4">
+            <FormField
+              control={form.control}
+              name="addressLine1"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Address Line 1 *</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Street address, building, etc." {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            
+            <FormField
+              control={form.control}
+              name="addressLine2"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Address Line 2</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Apartment, suite, unit, etc." {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            
+            <FormField
+              control={form.control}
+              name="addressLine3"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Address Line 3</FormLabel>
+                  <FormControl>
+                    <Textarea placeholder="Landmark or additional directions" className="resize-none" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          
+          <div className="pt-4">
+            <Button 
+              type="submit" 
+              size="lg" 
+              className="w-full bg-transport-900 hover:bg-transport-800"
+              disabled={createBooking.isPending}
+            >
+              {createBooking.isPending ? "Submitting..." : "Book Now"}
+            </Button>
+          </div>
+        </form>
+      </Form>
     </div>
   );
 };
