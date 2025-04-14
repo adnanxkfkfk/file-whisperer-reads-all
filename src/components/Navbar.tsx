@@ -1,12 +1,12 @@
-
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Truck } from "lucide-react";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,6 +30,17 @@ const Navbar = () => {
     { name: "Contact", path: "/contact" },
   ];
 
+  const handleBookingClick = () => {
+    if (location.pathname === '/services') {
+      const bookingSection = document.getElementById('booking-section');
+      if (bookingSection) {
+        bookingSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      window.location.href = '/services#booking-section';
+    }
+  };
+
   return (
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
@@ -51,7 +62,6 @@ const Navbar = () => {
           </div>
         </Link>
 
-        {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8">
           <div className="flex items-center gap-6">
             {navLinks.map((link) => (
@@ -64,12 +74,14 @@ const Navbar = () => {
               </Link>
             ))}
           </div>
-          <Button className="bg-transport-900 hover:bg-transport-800 text-white">
-            Get a Quote
+          <Button 
+            className="bg-transport-900 hover:bg-transport-800 text-white"
+            onClick={handleBookingClick}
+          >
+            Book Now
           </Button>
         </div>
 
-        {/* Mobile Navigation Toggle */}
         <button
           className="md:hidden text-transport-900"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -78,7 +90,6 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile Navigation Menu */}
       {isMenuOpen && (
         <div className="md:hidden bg-white absolute top-full left-0 right-0 shadow-md animate-fade-in">
           <div className="container mx-auto py-4 flex flex-col">
@@ -92,8 +103,14 @@ const Navbar = () => {
                 {link.name}
               </Link>
             ))}
-            <Button className="mt-4 bg-transport-900 hover:bg-transport-800 text-white">
-              Get a Quote
+            <Button 
+              className="mt-4 bg-transport-900 hover:bg-transport-800 text-white"
+              onClick={() => {
+                setIsMenuOpen(false);
+                handleBookingClick();
+              }}
+            >
+              Book Now
             </Button>
           </div>
         </div>

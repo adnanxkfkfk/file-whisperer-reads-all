@@ -230,7 +230,7 @@ const ServicesPage = () => {
       </section>
       
       {/* Booking Section */}
-      <section className="py-16 bg-gray-50">
+      <section id="booking-section" className="py-16 bg-gray-50">
         <div className="container">
           <h2 className="text-3xl font-bold text-center mb-10 text-transport-900">Book Our Services</h2>
           <div className="max-w-3xl mx-auto">
