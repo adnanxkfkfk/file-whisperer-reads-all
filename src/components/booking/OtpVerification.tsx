@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { 
@@ -7,6 +8,7 @@ import {
 } from "@/components/ui/input-otp";
 import { useToast } from "@/hooks/use-toast";
 import { AlertCircle, Loader2, CheckCircle2 } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 interface OtpVerificationProps {
   phoneNumber: string;
@@ -19,6 +21,7 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
   const [loading, setLoading] = useState(false);
   const [sendingOtp, setSendingOtp] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
+  const [verificationError, setVerificationError] = useState<string | null>(null);
   const { toast } = useToast();
 
   const formatPhone = (phone: string) => {
@@ -37,6 +40,7 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
     }
 
     setSendingOtp(true);
+    setVerificationError(null); // Clear any previous errors
 
     try {
       const formattedPhone = formatPhone(phoneNumber);
@@ -96,6 +100,7 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
     }
 
     setLoading(true);
+    setVerificationError(null); // Clear previous errors
 
     try {
       const formattedPhone = formatPhone(phoneNumber);
@@ -124,6 +129,7 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
           });
           onVerificationSuccess();
         } else {
+          setVerificationError(result.error || "Verification failed. Please try again.");
           toast({
             title: "Verification Failed",
             description: result.error || "The code you entered is incorrect. Please try again.",
@@ -134,6 +140,7 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
         const errorText = await response.text();
         console.error("Verification API error response:", errorText);
         
+        setVerificationError("There was an issue verifying your code. Please try again.");
         toast({
           title: "Verification Failed",
           description: "There was an issue verifying your code. Please try again.",
@@ -142,6 +149,7 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
       }
     } catch (error) {
       console.error("Error verifying OTP:", error);
+      setVerificationError("Network error. Please try again later.");
       toast({
         title: "Error",
         description: "Network error connecting to verification service. Please try again later.",
@@ -160,6 +168,13 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
         <p>We need to verify your WhatsApp number:</p>
         <p className="font-semibold mt-2">{phoneNumber}</p>
       </div>
+      
+      {verificationError && (
+        <Alert variant="destructive" className="w-full max-w-xs">
+          <AlertCircle className="h-4 w-4 mr-2" />
+          <AlertDescription>{verificationError}</AlertDescription>
+        </Alert>
+      )}
       
       {!otpSent ? (
         <Button 

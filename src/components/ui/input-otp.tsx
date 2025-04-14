@@ -59,8 +59,8 @@ const InputOTPSlot = React.forwardRef<
       )}
       {...props}
     >
-      {/* Changed text color to purple for OTP numbers */}
-      <span className="text-purple-600 font-semibold">{char}</span>
+      {/* Make OTP text larger and darker for better visibility */}
+      <span className="text-black font-semibold text-lg">{char}</span>
       {hasFakeCaret && (
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
           <div className="h-4 w-px animate-caret-blink bg-foreground duration-1000" />
