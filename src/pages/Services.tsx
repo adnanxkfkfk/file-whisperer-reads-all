@@ -133,6 +133,11 @@ const features = [
 ];
 
 const ServicesPage = () => {
+  // Add function to handle service selection
+  const handleBookService = (serviceId: string) => {
+    window.location.href = `/booking?service=${serviceId}`;
+  };
+
   return (
     <Layout>
       {/* Hero Section */}
@@ -219,22 +224,16 @@ const ServicesPage = () => {
                     </ul>
                   </div>
                   
-                  <Button className="bg-transport-900 hover:bg-transport-800">
-                    <Link to="/contact">Get a Quote</Link>
+                  <Button 
+                    className="bg-transport-900 hover:bg-transport-800"
+                    onClick={() => handleBookService(service.id)}
+                    disabled={service.comingSoon}
+                  >
+                    {service.comingSoon ? "Coming Soon" : "Book Now"}
                   </Button>
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-      
-      {/* Booking Section */}
-      <section id="booking-section" className="py-16 bg-gray-50">
-        <div className="container">
-          <h2 className="text-3xl font-bold text-center mb-10 text-transport-900">Book Our Services</h2>
-          <div className="max-w-3xl mx-auto">
-            <BookingForm />
           </div>
         </div>
       </section>

@@ -1,5 +1,5 @@
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -40,7 +40,6 @@ import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import OtpVerification from "./OtpVerification";
 
-// Validation schema
 const formSchema = z.object({
   fullName: z.string().min(2, {
     message: "Full name must be at least 2 characters.",
@@ -77,6 +76,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 const BookingForm = () => {
+  const [searchParams] = useSearchParams();
   const [showVerification, setShowVerification] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
   const { toast } = useToast();
@@ -106,12 +106,17 @@ const BookingForm = () => {
     },
   });
 
+  useEffect(() => {
+    const serviceId = searchParams.get("service");
+    if (serviceId && form && serviceTypes) {
+      form.setValue("serviceTypeId", serviceId);
+    }
+  }, [searchParams, serviceTypes, form]);
+
   const createBooking = useMutation({
     mutationFn: async (data: FormValues) => {
-      // Generate a unique order ID
       const orderId = `ORD-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
       
-      // Map form data to match the database schema
       const bookingData = {
         name: data.fullName,
         number: data.mobileNumber,
@@ -123,7 +128,6 @@ const BookingForm = () => {
         dpin: data.destinationPincode,
         oa: data.addressLine1,
         da: `${data.addressLine2 || ''} ${data.addressLine3 || ''}`.trim(),
-        // Required field in the database schema
         order_id: orderId,
       };
 
