@@ -1,8 +1,8 @@
-
 import Layout from "@/components/Layout";
 import { Truck, Clock, Shield, RefreshCw, Building, Home, Briefcase, Building2, HardDrive, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import BookingForm from "@/components/booking/BookingForm";
 
 const services = [
   {
@@ -225,6 +225,16 @@ const ServicesPage = () => {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+      
+      {/* Booking Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="container">
+          <h2 className="text-3xl font-bold text-center mb-10 text-transport-900">Book Our Services</h2>
+          <div className="max-w-3xl mx-auto">
+            <BookingForm />
           </div>
         </div>
       </section>

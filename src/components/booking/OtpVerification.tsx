@@ -22,7 +22,8 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
   const { toast } = useToast();
 
   const formatPhone = (phone: string) => {
-    return phone.replace(/\D/g, '');
+    const cleaned = phone.replace(/\D/g, '');
+    return cleaned.startsWith('91') ? cleaned : `91${cleaned}`;
   };
 
   const sendOtp = async () => {
@@ -47,7 +48,6 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
-          "Origin": window.location.origin,
         },
         body: JSON.stringify({ phone: formattedPhone }),
       });
@@ -75,20 +75,11 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
       }
     } catch (error) {
       console.error("Error sending OTP:", error);
-      
-      if (import.meta.env.DEV) {
-        toast({
-          title: "Development Mode",
-          description: "Proceeding without OTP in development mode.",
-        });
-        setOtpSent(true);
-      } else {
-        toast({
-          title: "Error",
-          description: "Network error connecting to verification service. Please try again later.",
-          variant: "destructive",
-        });
-      }
+      toast({
+        title: "Error",
+        description: "Network error connecting to verification service. Please try again later.",
+        variant: "destructive",
+      });
     } finally {
       setSendingOtp(false);
     }
@@ -107,15 +98,6 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
     setLoading(true);
 
     try {
-      if (import.meta.env.DEV) {
-        toast({
-          title: "Development Mode",
-          description: "OTP verified in development mode.",
-        });
-        onVerificationSuccess();
-        return;
-      }
-      
       const formattedPhone = formatPhone(phoneNumber);
       
       console.log("Sending verification request with data:", { phone: formattedPhone, otp });
@@ -125,7 +107,6 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
-          "Origin": window.location.origin,
         },
         body: JSON.stringify({ phone: formattedPhone, otp }),
       });
