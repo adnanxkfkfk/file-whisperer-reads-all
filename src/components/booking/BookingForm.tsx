@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -33,7 +34,6 @@ import {
 import { 
   Dialog,
   DialogContent,
-  DialogOverlay
 } from "@/components/ui/dialog";
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -108,21 +108,23 @@ const BookingForm = () => {
 
   const createBooking = useMutation({
     mutationFn: async (data: FormValues) => {
-      // Convert the data format to match the database structure
+      // Generate a unique order ID
+      const orderId = `ORD-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+      
+      // Map form data to match the database schema
       const bookingData = {
-        full_name: data.fullName,
-        mobile_number: data.mobileNumber,
-        is_mobile_verified: isVerified,
+        name: data.fullName,
+        number: data.mobileNumber,
         email: data.email,
-        service_type_id: parseInt(data.serviceTypeId),
-        num_packages: data.numPackages,
-        approximate_weight: data.approximateWeight || null,
-        origin_pincode: data.originPincode,
-        destination_pincode: data.destinationPincode,
-        pickup_datetime: data.pickupDate.toISOString(),
-        address_line1: data.addressLine1,
-        address_line2: data.addressLine2 || null,
-        address_line3: data.addressLine3 || null,
+        stype: serviceTypes?.find(t => t.id.toString() === data.serviceTypeId)?.name || data.serviceTypeId,
+        np: data.numPackages.toString(),
+        aw: data.approximateWeight || null,
+        opin: data.originPincode,
+        dpin: data.destinationPincode,
+        oa: data.addressLine1,
+        da: `${data.addressLine2 || ''} ${data.addressLine3 || ''}`.trim(),
+        // Required field in the database schema
+        order_id: orderId,
       };
 
       const { data: result, error } = await supabase
