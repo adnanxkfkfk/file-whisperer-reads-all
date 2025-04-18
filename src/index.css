@@ -38,12 +38,13 @@
     --radius: 0.5rem;
   }
 
+  /* Replace the problematic border-border class with a direct border color reference */
   * {
-    @apply border-border;
+    @apply border-gray-200;
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-inter;
   }
 
   h1, h2, h3, h4, h5, h6 {
