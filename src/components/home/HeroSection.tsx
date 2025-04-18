@@ -26,7 +26,7 @@ const HeroSection = () => {
                   Our Services <ArrowRight size={18} />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="text-white border-white hover:bg-white/10">
+              <Button size="lg" variant="outline" className="bg-accent text-black hover:bg-accent/90 font-semibold">
                 <Link to="/services#booking-section">Book Now</Link>
               </Button>
             </div>
