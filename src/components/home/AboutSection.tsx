@@ -1,6 +1,5 @@
-
 import { Button } from "@/components/ui/button";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, Building2 } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const features = [
@@ -10,6 +9,17 @@ const features = [
   "Eco-friendly transportation practices",
   "Customized logistics solutions",
   "Transparent pricing with no hidden fees"
+];
+
+const subsidiaries = [
+  {
+    name: "MS Transport Service",
+    description: "Specialized in domestic freight and express delivery solutions"
+  },
+  {
+    name: "DS Logistics",
+    description: "Expert in supply chain management and international logistics"
+  }
 ];
 
 const AboutSection = () => {
@@ -52,13 +62,23 @@ const AboutSection = () => {
               Our commitment to reliability, safety, and customer satisfaction 
               makes us the preferred choice for transportation needs.
             </p>
-            <p className="text-gray-600 mb-8">
-              We understand that each shipment is important, which is why we 
-              provide customized logistics solutions to meet your specific 
-              requirements. Our team of experienced professionals ensures that 
-              your goods reach their destination safely and on time.
-            </p>
             
+            {/* Subsidiary Companies */}
+            <div className="mb-8">
+              <h3 className="text-xl font-bold text-transport-900 mb-4">Our Subsidiary Companies</h3>
+              <div className="space-y-4">
+                {subsidiaries.map((subsidiary, index) => (
+                  <div key={index} className="flex items-start gap-3 bg-white p-4 rounded-lg shadow-sm">
+                    <Building2 className="text-transport-700 flex-shrink-0 mt-1" size={20} />
+                    <div>
+                      <h4 className="font-semibold text-transport-900">{subsidiary.name}</h4>
+                      <p className="text-sm text-gray-600">{subsidiary.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-3 mb-8">
               {features.map((feature, index) => (
                 <div key={index} className="flex items-center gap-2">

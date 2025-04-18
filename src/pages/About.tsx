@@ -1,6 +1,5 @@
-
 import Layout from "@/components/Layout";
-import { CheckCircle, TruckIcon, ShieldCheck, Users, Award, Target } from "lucide-react";
+import { CheckCircle, TruckIcon, ShieldCheck, Users, Award, Target, Building2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -52,6 +51,29 @@ const milestones = [
     year: "2022",
     title: "Sustainability Initiative",
     description: "Launched our eco-friendly transportation program, incorporating electric vehicles and carbon offset measures."
+  }
+];
+
+const subsidiaries = [
+  {
+    name: "MS Transport Service",
+    description: "Specialized in domestic freight and express delivery solutions",
+    features: [
+      "Nationwide coverage",
+      "Express delivery services",
+      "Temperature-controlled transport",
+      "Last-mile delivery solutions"
+    ]
+  },
+  {
+    name: "DS Logistics",
+    description: "Expert in supply chain management and international logistics",
+    features: [
+      "International freight forwarding",
+      "Warehouse management",
+      "Supply chain optimization",
+      "Customs clearance services"
+    ]
   }
 ];
 
@@ -132,6 +154,30 @@ const AboutPage = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Subsidiary Companies Section */}
+      <section className="py-16 bg-white">
+        <div className="container">
+          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-transport-900">Our Subsidiary Companies</h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            {subsidiaries.map((subsidiary, index) => (
+              <div key={index} className="bg-gray-50 rounded-xl p-6 border border-gray-100">
+                <Building2 className="h-12 w-12 text-transport-700 mb-4" />
+                <h3 className="text-2xl font-bold mb-3 text-transport-900">{subsidiary.name}</h3>
+                <p className="text-gray-600 mb-6">{subsidiary.description}</p>
+                <div className="space-y-3">
+                  {subsidiary.features.map((feature, idx) => (
+                    <div key={idx} className="flex items-center gap-2">
+                      <CheckCircle size={16} className="text-transport-700 flex-shrink-0" />
+                      <span className="text-gray-700 text-sm">{feature}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
