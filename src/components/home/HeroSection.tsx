@@ -57,7 +57,7 @@ const HeroSection = () => {
             <div className="relative">
               <div className="w-[450px] h-[450px] bg-gradient-to-br from-blue-500/30 to-purple-500/30 rounded-full absolute -top-10 -left-10 animate-pulse"></div>
               <img 
-                src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=2574&auto=format&fit=crop"
+                src="https://tenjku.rf.gd/file_00000000bb0061f7b3a084dba49429f4_conversation_id=68024512-a848-8003-8e6f-a14e81e40801&message_id=99a1e2f4-d662-4f74-82fe-81594dd8f4ef.png"
                 alt="Transport truck on highway" 
                 className="relative z-10 rounded-lg shadow-2xl object-cover h-[400px] w-full"
               />
