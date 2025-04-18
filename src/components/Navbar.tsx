@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -45,18 +46,18 @@ const Navbar = () => {
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-white shadow-md py-3"
+          ? "bg-custom-white shadow-md py-3"
           : "bg-transparent py-4 md:py-6"
       }`}
     >
       <div className="container mx-auto flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
-          <Truck size={32} className="text-transport-900" />
+          <Truck size={32} className="text-custom-green" />
           <div>
-            <h1 className="text-xl md:text-2xl font-bold text-transport-900">
+            <h1 className="text-xl md:text-2xl font-bold text-custom-black">
               Farhan Transport
             </h1>
-            <p className="text-xs text-transport-700 -mt-1">
+            <p className="text-xs text-custom-blue-dark -mt-1">
               Transport with Trust
             </p>
           </div>
@@ -68,14 +69,14 @@ const Navbar = () => {
               <Link
                 key={link.name}
                 to={link.path}
-                className="text-transport-900 hover:text-transport-700 font-medium transition-colors"
+                className="text-custom-black hover:text-custom-blue font-medium transition-colors"
               >
                 {link.name}
               </Link>
             ))}
           </div>
           <Button 
-            className="bg-transport-900 hover:bg-transport-800 text-white"
+            className="bg-accent hover:bg-accent/90 text-white"
             onClick={handleBookingClick}
           >
             Book Now
@@ -83,7 +84,7 @@ const Navbar = () => {
         </div>
 
         <button
-          className="md:hidden text-transport-900"
+          className="md:hidden text-custom-black"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -91,20 +92,20 @@ const Navbar = () => {
       </div>
 
       {isMenuOpen && (
-        <div className="md:hidden bg-white absolute top-full left-0 right-0 shadow-md animate-fade-in">
+        <div className="md:hidden bg-custom-white absolute top-full left-0 right-0 shadow-md animate-fade-in">
           <div className="container mx-auto py-4 flex flex-col">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 to={link.path}
-                className="py-3 text-transport-900 hover:text-transport-700 font-medium transition-colors"
+                className="py-3 text-custom-black hover:text-custom-blue font-medium transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {link.name}
               </Link>
             ))}
             <Button 
-              className="mt-4 bg-transport-900 hover:bg-transport-800 text-white"
+              className="mt-4 bg-accent hover:bg-accent/90 text-white"
               onClick={() => {
                 setIsMenuOpen(false);
                 handleBookingClick();

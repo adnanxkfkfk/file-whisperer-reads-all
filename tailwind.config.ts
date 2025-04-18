@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -53,15 +54,15 @@ export default {
         background: 'hsl(0 0% 100%)',
         foreground: 'hsl(0 0% 0%)',
         primary: {
-          DEFAULT: 'hsl(142 70% 45%)',
+          DEFAULT: 'hsl(142 70% 45%)', // Green
           foreground: 'hsl(0 0% 100%)'
         },
         secondary: {
-          DEFAULT: 'hsl(28 87% 62%)',
+          DEFAULT: 'hsl(28 87% 62%)', // Orange
           foreground: 'hsl(0 0% 0%)'
         },
         accent: {
-          DEFAULT: 'hsl(197 89% 48%)',
+          DEFAULT: 'hsl(197 89% 48%)', // Dark blue
           foreground: 'hsl(0 0% 100%)'
         }
       },
