@@ -16,7 +16,7 @@ import Payment from "./pages/Payment";
 const queryClient = new QueryClient();
 
 // Toggle this to true to show the Coming Soon page
-const SHOW_COMING_SOON = true;
+const SHOW_COMING_SOON = false;
 
 const App = () => {
   if (SHOW_COMING_SOON) {
