@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ShieldCheck, Globe, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -14,13 +13,12 @@ const HeroSection = () => {
         <div className="grid md:grid-cols-2 gap-12 py-16 md:py-20">
           <div className="flex flex-col justify-center animate-slide-up">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-              Transport Service in Maharashtra & Mumbai <br />
-              <span className="text-accent">Farhan Transport Service</span> – Trucks & Logistics
+              Transport Service & Trucks in Maharashtra, Mumbai <br />
+              <span className="text-accent">Farhan Transport Service</span> – Logistics & Cargo Experts
             </h1>
             <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-lg">
-              Farhan Transport Service offers professional transport solutions in Mumbai, Maharashtra, and all over India.
-              We provide reliable, efficient, and secure transportation for your business needs—with modern transport trucks, trained drivers, 
-              and a strong commitment to timely delivery and customer satisfaction.
+              Farhan Transport Service is your trusted Mumbai transport company, offering professional transport truck, cargo, and logistics services in Maharashtra and across India.
+              Reliable, efficient, and safe—move your business with the best transport service in Mumbai.
             </p>
             
             <div className="flex flex-wrap gap-4">
@@ -87,4 +85,3 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
-

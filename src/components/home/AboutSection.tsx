@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { CheckCircle, Building2 } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -57,10 +56,12 @@ const AboutSection = () => {
           
           {/* Right Column - Text */}
           <div>
-            <h2 className="section-title mb-4">About Farhan Transport Service – Mumbai, Maharashtra</h2>
+            <h2 className="section-title mb-4">
+              About Farhan Transport Service – Trusted Transport Trucks, Logistics in Mumbai & Maharashtra
+            </h2>
             <p className="text-lg text-gray-700 mb-6">
-              At Farhan Transport Service, we deliver transport and logistics excellence in Mumbai and Maharashtra.
-              Since 2008, our experienced team has served businesses and individuals with transport truck solutions, safety, and reliability.
+              Choose Farhan Transport Service for <b>transport trucks</b>, cargo delivery, and logistics solutions in Mumbai and Maharashtra since 2008.
+              Our transport service is trusted by businesses for safe, efficient, and timely Mumbai transport.
             </p>
             
             {/* Subsidiary Companies */}
@@ -99,4 +100,3 @@ const AboutSection = () => {
 };
 
 export default AboutSection;
-
