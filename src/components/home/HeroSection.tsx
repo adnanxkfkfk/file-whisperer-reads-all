@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ShieldCheck, Globe, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -13,11 +14,13 @@ const HeroSection = () => {
         <div className="grid md:grid-cols-2 gap-12 py-16 md:py-20">
           <div className="flex flex-col justify-center animate-slide-up">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-              Transport with Trust, <br />Deliver with Excellence
+              Transport Service in Maharashtra & Mumbai <br />
+              <span className="text-accent">Farhan Transport Service</span> – Trucks & Logistics
             </h1>
             <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-lg">
-              Reliable, efficient, and secure transportation solutions for 
-              your business needs across the nation and beyond.
+              Farhan Transport Service offers professional transport solutions in Mumbai, Maharashtra, and all over India.
+              We provide reliable, efficient, and secure transportation for your business needs—with modern transport trucks, trained drivers, 
+              and a strong commitment to timely delivery and customer satisfaction.
             </p>
             
             <div className="flex flex-wrap gap-4">
@@ -42,7 +45,7 @@ const HeroSection = () => {
                 <div className="bg-accent/20 p-2 rounded-full">
                   <Globe className="text-accent" size={20} />
                 </div>
-                <span className="text-sm md:text-base">Nationwide Coverage</span>
+                <span className="text-sm md:text-base">Nationwide & Mumbai Transport</span>
               </div>
               <div className="flex items-center gap-3">
                 <div className="bg-accent/20 p-2 rounded-full">
@@ -58,7 +61,7 @@ const HeroSection = () => {
               <div className="w-[450px] h-[450px] bg-gradient-to-br from-blue-500/30 to-purple-500/30 rounded-full absolute -top-10 -left-10 animate-pulse"></div>
               <img 
                 src="https://tenjku.rf.gd/file_00000000bb0061f7b3a084dba49429f4_conversation_id=68024512-a848-8003-8e6f-a14e81e40801&message_id=99a1e2f4-d662-4f74-82fe-81594dd8f4ef.png"
-                alt="Transport truck on highway" 
+                alt="Farhan Transport Service - transport truck in Mumbai, Maharashtra" 
                 className="relative z-10 rounded-lg shadow-2xl object-cover h-[400px] w-full"
               />
               <div className="absolute -bottom-10 -right-10 bg-accent p-6 rounded-lg shadow-xl z-20">
@@ -84,3 +87,4 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
+

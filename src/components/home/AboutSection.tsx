@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { CheckCircle, Building2 } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -14,11 +15,11 @@ const features = [
 const subsidiaries = [
   {
     name: "MS Transport Service",
-    description: "Specialized in domestic freight and express delivery solutions"
+    description: "Specialized in domestic freight and express delivery solutions across Mumbai, Maharashtra, and India."
   },
   {
     name: "DS Logistics",
-    description: "Expert in supply chain management and international logistics"
+    description: "Expert in supply chain management and international logistics solutions for Maharashtra business growth."
   }
 ];
 
@@ -32,18 +33,18 @@ const AboutSection = () => {
             <div className="grid grid-cols-2 gap-4">
               <img
                 src="https://images.unsplash.com/photo-1562078809-77187a7eb124?ixlib=rb-4.0.3&auto=format&fit=crop&w=774&h=900&q=80"
-                alt="Transport trucks in warehouse"
+                alt="MS Transport Service Mumbai warehouse"
                 className="rounded-lg object-cover w-full h-full shadow-md"
               />
               <div className="space-y-4">
                 <img
                   src="https://images.unsplash.com/photo-1600706432774-bc9518b558cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=774&h=450&q=80"
-                  alt="Transport professional"
+                  alt="Farhan Transport Service truck Maharashtra"
                   className="rounded-lg object-cover w-full h-[48%] shadow-md"
                 />
                 <img
                   src="https://images.unsplash.com/photo-1587293852726-70cdb56c2866?ixlib=rb-4.0.3&auto=format&fit=crop&w=774&h=450&q=80"
-                  alt="Logistics planning"
+                  alt="DS Logistics and transport planning"
                   className="rounded-lg object-cover w-full h-[48%] shadow-md"
                 />
               </div>
@@ -56,11 +57,10 @@ const AboutSection = () => {
           
           {/* Right Column - Text */}
           <div>
-            <h2 className="section-title mb-4">About Farhan Transport</h2>
+            <h2 className="section-title mb-4">About Farhan Transport Service – Mumbai, Maharashtra</h2>
             <p className="text-lg text-gray-700 mb-6">
-              At Farhan Transport, we've been delivering excellence since 2008. 
-              Our commitment to reliability, safety, and customer satisfaction 
-              makes us the preferred choice for transportation needs.
+              At Farhan Transport Service, we deliver transport and logistics excellence in Mumbai and Maharashtra.
+              Since 2008, our experienced team has served businesses and individuals with transport truck solutions, safety, and reliability.
             </p>
             
             {/* Subsidiary Companies */}
@@ -99,3 +99,4 @@ const AboutSection = () => {
 };
 
 export default AboutSection;
+
