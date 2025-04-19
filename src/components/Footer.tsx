@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Clock, Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
 
@@ -13,7 +12,7 @@ const Footer = () => {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <img
-                src="/lovable-uploads/067fe435-7755-4d60-8d29-62c5791763e4.png"
+                src="public/logo.png"
                 alt="FTS Logo"
                 className="h-9 w-9 object-contain"
                 style={{ minWidth: "2.25rem" }}

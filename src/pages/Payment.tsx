@@ -2,8 +2,9 @@
 import Layout from "@/components/Layout";
 import { CreditCard, IndianRupee, QrCode } from "lucide-react";
 
-const upiImage = "/lovable-uploads/067fe435-7755-4d60-8d29-62c5791763e4.png";
-const cardImage = "/lovable-uploads/067fe435-7755-4d60-8d29-62c5791763e4.png";
+// Images for payment support
+const upiImage = "/lovable-uploads/upi-sample.png";      // Replace with a real UPI illustration if uploaded
+const cardImage = "/lovable-uploads/card-sample.png";    // Replace with a real Card illustration if uploaded
 
 const Payment = () => {
   return (
@@ -23,6 +24,7 @@ const Payment = () => {
                 src={upiImage}
                 alt="UPI payment supported"
                 className="w-36 h-20 object-contain mb-3 rounded-lg bg-white border"
+                onError={(e) => { (e.currentTarget as HTMLImageElement).src = "public/logo.png"; }}
               />
               <div className="text-base font-semibold mb-2">UPI Payments Supported</div>
               <div className="text-sm text-gray-500 text-center">Google Pay, PhonePe, Paytm, BHIM and more</div>
@@ -34,6 +36,7 @@ const Payment = () => {
                 src={cardImage}
                 alt="All cards supported"
                 className="w-36 h-20 object-contain mb-3 rounded-lg bg-white border"
+                onError={(e) => { (e.currentTarget as HTMLImageElement).src = "public/logo.png"; }}
               />
               <div className="text-base font-semibold mb-2">Credit & Debit Cards Accepted</div>
               <div className="text-sm text-gray-500 text-center">Visa, Mastercard, RuPay, Maestro, and more</div>

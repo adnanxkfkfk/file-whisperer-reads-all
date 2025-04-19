@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -55,7 +54,7 @@ const Navbar = () => {
       <div className="container mx-auto flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
           <img
-            src="/lovable-uploads/067fe435-7755-4d60-8d29-62c5791763e4.png"
+            src="public/logo.png"
             alt="FTS Logo"
             className="h-12 w-12 md:h-14 md:w-14 object-contain"
             style={{ minWidth: "3rem" }}
@@ -128,4 +127,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
