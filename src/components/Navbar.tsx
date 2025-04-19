@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Truck } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -54,13 +54,18 @@ const Navbar = () => {
     >
       <div className="container mx-auto flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
-          <Truck size={32} className="text-custom-green" />
+          <img
+            src="/lovable-uploads/067fe435-7755-4d60-8d29-62c5791763e4.png"
+            alt="FTS Logo"
+            className="h-12 w-12 md:h-14 md:w-14 object-contain"
+            style={{ minWidth: "3rem" }}
+          />
           <div>
             <h1 className="text-xl md:text-2xl font-bold text-custom-black">
               Farhan Transport
             </h1>
             <p className="text-xs text-custom-blue-dark -mt-1">
-              Transport with Trust
+              Transporting with Trust
             </p>
           </div>
         </Link>
@@ -123,3 +128,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

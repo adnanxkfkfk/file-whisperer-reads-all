@@ -1,6 +1,6 @@
 
 import { Link } from "react-router-dom";
-import { Phone, Mail, MapPin, Clock, Facebook, Twitter, Instagram, Linkedin, Truck } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -12,10 +12,15 @@ const Footer = () => {
           {/* Column 1 - Company Info */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <Truck size={28} className="text-custom-green" />
+              <img
+                src="/lovable-uploads/067fe435-7755-4d60-8d29-62c5791763e4.png"
+                alt="FTS Logo"
+                className="h-9 w-9 object-contain"
+                style={{ minWidth: "2.25rem" }}
+              />
               <div>
                 <h3 className="text-xl font-bold">Farhan Transport</h3>
-                <p className="text-xs text-custom-green-light">Transport with Trust</p>
+                <p className="text-xs text-custom-green-light">Transporting with Trust</p>
               </div>
             </div>
             <p className="text-custom-white/80 mb-4">
@@ -62,8 +67,13 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/tracking" className="text-custom-white/80 hover:text-custom-white transition-colors">
-                  Track Shipment
+                <Link to="/track" className="text-custom-white/80 hover:text-custom-white transition-colors">
+                  Track
+                </Link>
+              </li>
+              <li>
+                <Link to="/payment" className="text-custom-white/80 hover:text-custom-white transition-colors">
+                  Payment
                 </Link>
               </li>
             </ul>

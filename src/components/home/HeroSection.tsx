@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ShieldCheck, Globe, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -14,7 +15,7 @@ const HeroSection = () => {
           <div className="flex flex-col justify-center animate-slide-up">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
               Transport Service & Trucks in Maharashtra, Mumbai <br />
-              <span className="text-accent">Farhan Transport Service</span> – Logistics & Cargo Experts
+              <span className="text-accent">Farhan Transport Service</span> – Logistics &amp; Cargo Experts
             </h1>
             <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-lg">
               Farhan Transport Service is your trusted Mumbai transport company, offering professional transport truck, cargo, and logistics services in Maharashtra and across India.
@@ -37,13 +38,13 @@ const HeroSection = () => {
                 <div className="bg-accent/20 p-2 rounded-full">
                   <ShieldCheck className="text-accent" size={20} />
                 </div>
-                <span className="text-sm md:text-base">Safe & Secure Transport</span>
+                <span className="text-sm md:text-base">Safe &amp; Secure Transport</span>
               </div>
               <div className="flex items-center gap-3">
                 <div className="bg-accent/20 p-2 rounded-full">
                   <Globe className="text-accent" size={20} />
                 </div>
-                <span className="text-sm md:text-base">Nationwide & Mumbai Transport</span>
+                <span className="text-sm md:text-base">Nationwide &amp; Mumbai Transport</span>
               </div>
               <div className="flex items-center gap-3">
                 <div className="bg-accent/20 p-2 rounded-full">
@@ -58,9 +59,10 @@ const HeroSection = () => {
             <div className="relative">
               <div className="w-[450px] h-[450px] bg-gradient-to-br from-blue-500/30 to-purple-500/30 rounded-full absolute -top-10 -left-10 animate-pulse"></div>
               <img 
-                src="https://tenjku.rf.gd/file_00000000bb0061f7b3a084dba49429f4_conversation_id=68024512-a848-8003-8e6f-a14e81e40801&message_id=99a1e2f4-d662-4f74-82fe-81594dd8f4ef.png"
-                alt="Farhan Transport Service - transport truck in Mumbai, Maharashtra" 
-                className="relative z-10 rounded-lg shadow-2xl object-cover h-[400px] w-full"
+                src="/lovable-uploads/067fe435-7755-4d60-8d29-62c5791763e4.png"
+                alt="Farhan Transport Service FTS logo truck"
+                className="relative z-10 rounded-lg object-contain h-[320px] w-[320px] bg-white p-6 shadow-2xl"
+                style={{ border: "1px solid #e4e4e7" }}
               />
               <div className="absolute -bottom-10 -right-10 bg-accent p-6 rounded-lg shadow-xl z-20">
                 <h3 className="text-black font-bold text-xl">15+ Years</h3>
