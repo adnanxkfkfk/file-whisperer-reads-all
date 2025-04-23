@@ -1,4 +1,3 @@
-
 import Layout from "@/components/Layout";
 import { CheckCircle, TruckIcon, ShieldCheck, Users, Award, Target, Building2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -82,47 +81,40 @@ const AboutPage = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-transport-900 text-white relative overflow-hidden">
+      <section className="pt-32 pb-16 bg-gradient-to-br from-transport-900 to-transport-800 text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute h-full w-full bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMyNTI1MjUiIGZpbGwtb3BhY2l0eT0iMC40Ij48cGF0aCBkPSJNMzYgMzRjMC0yLjItMS44LTQtNC00cy00IDEuOC00IDQgMS44IDQgNCA0IDQtMS44IDQtNHptMC0zMGMwLTIuMi0xLjgtNC00LTRzLTQgMS44LTQgNCAxLjggNCA0IDQgNC0xLjggNC00em0wIDYwYzAtMi4yLTEuOC00LTQtNHMtNCAxLjgtNCA0IDEuOCA0IDQgNCA0LTEuOCA0LTR6Ii8+PC9nPjwvZz48L3N2Zz4=')] bg-repeat"></div>
         </div>
         
         <div className="container relative">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">About Farhan Transport</h1>
-            <p className="text-xl text-gray-300 mb-8">
-              Farhan Transport Service (FTS) is a Vikhroli, Mumbai-based transport company established on 1st January 2017. We believe in building long-term relationships through reliable, timely, and transparent delivery services.<br />
-              With over 8 years of experience, we have proudly served reputed clients such as Godrej &amp; Boyce Ltd, Malhar Enterprises, Loadshare Network, MP Logistics, and DK Logistics. Our fleet of well-maintained vehicles and professionally trained drivers ensures the safe and efficient transportation of goods, while our organized staff keeps day-to-day operations running smoothly.<br />
-              We are also committed to environmental responsibility by using CNG-fueled vehicles and reusing waste materials wherever possible.<br />
-              With a dedicated team of over 30+ drivers and labourers, strong client trust, consistent performance, and a sharp focus on timely delivery, FTS aims to be your preferred logistics and transportation partner.
+          <div className="max-w-3xl animate-fade-in">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gradient">About Farhan Transport</h1>
+            <p className="text-xl text-gray-300 mb-8 leading-relaxed">
+              Farhan Transport Service (FTS) is a Vikhroli, Mumbai-based transport company established on 1st January 2017. 
+              <span className="block mt-4">
+                With over 8 years of experience, we have proudly served reputed clients such as Godrej &amp; Boyce Ltd, Malhar Enterprises, Loadshare Network, MP Logistics, and DK Logistics.
+              </span>
             </p>
           </div>
         </div>
         
-        {/* Wave Separator */}
         <div className="absolute bottom-0 w-full">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-            <path fill="#ffffff" fillOpacity="1" d="M0,128L60,122.7C120,117,240,107,360,128C480,149,600,203,720,197.3C840,192,960,128,1080,112C1200,96,1320,128,1380,144L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
+            <path fill="#F0F6FF" fillOpacity="1" d="M0,128L60,122.7C120,117,240,107,360,128C480,149,600,203,720,197.3C840,192,960,128,1080,112C1200,96,1320,128,1380,144L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
           </svg>
         </div>
       </section>
       
-      {/* Our Story */}
-      <section className="py-16 bg-white">
+      {/* Our Story Section - Enhanced with glass effect and animations */}
+      <section className="py-16 bg-[#F0F6FF]">
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
+            <div className="animate-slide-up">
               <h2 className="text-3xl md:text-4xl font-bold mb-6 text-transport-900">Our Story</h2>
-              <p className="text-gray-700 mb-4">
-                Founded in 2008, Farhan Transport began with a single truck and a vision to transform the transportation industry with reliable, customer-focused service. Our founder, Mr. Farhan Ahmed, recognized the need for a transportation company that truly understood and responded to customer needs.
+              <p className="text-gray-700 mb-4 leading-relaxed">
+                Founded in 2008, Farhan Transport began with a single truck and a vision to transform the transportation industry with reliable, customer-focused service.
               </p>
-              <p className="text-gray-700 mb-4">
-                From these humble beginnings, we've grown into a comprehensive logistics provider with a modern fleet, advanced technology, and a team of dedicated professionals. Throughout our journey, we've remained true to our core values of reliability, safety, and excellence.
-              </p>
-              <p className="text-gray-700 mb-4">
-                Today, Farhan Transport serves clients across multiple industries, providing customized logistics solutions that help businesses optimize their supply chains and grow. Our commitment to "Transport with Trust" is reflected in everything we do, from our rigorous safety protocols to our transparent business practices.
-              </p>
-              <div className="mt-8">
+              <div className="mt-8 glass p-6 hover-lift">
                 <div className="flex items-center gap-4">
                   <img 
                     src="https://randomuser.me/api/portraits/men/75.jpg" 
@@ -130,30 +122,30 @@ const AboutPage = () => {
                     className="w-16 h-16 rounded-full object-cover border-4 border-transport-100"
                   />
                   <div>
-                    <h4 className="font-bold text-lg">Farhan Ahmed</h4>
+                    <h4 className="font-bold text-lg text-transport-900">Farhan Ahmed</h4>
                     <p className="text-gray-600">Founder & CEO</p>
                   </div>
                 </div>
               </div>
             </div>
             
-            <div className="relative">
+            <div className="relative animate-fade-in" style={{ animationDelay: "0.3s" }}>
               <div className="grid grid-cols-2 gap-4">
                 <img 
                   src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-4.0.3&auto=format&fit=crop&w=774&q=80" 
                   alt="Company history" 
-                  className="rounded-lg shadow-md w-full h-full object-cover"
+                  className="rounded-lg shadow-lg hover-lift w-full h-full object-cover"
                 />
                 <div className="space-y-4">
                   <img 
                     src="https://images.unsplash.com/photo-1570152918566-7f3b995d154d?ixlib=rb-4.0.3&auto=format&fit=crop&w=774&q=80" 
                     alt="Transport fleet" 
-                    className="rounded-lg shadow-md w-full h-[48%] object-cover"
+                    className="rounded-lg shadow-lg hover-lift w-full h-[48%] object-cover"
                   />
                   <img 
                     src="https://images.unsplash.com/photo-1623000751995-4d8c5cf08f76?ixlib=rb-4.0.3&auto=format&fit=crop&w=774&q=80" 
                     alt="Transport team" 
-                    className="rounded-lg shadow-md w-full h-[48%] object-cover"
+                    className="rounded-lg shadow-lg hover-lift w-full h-[48%] object-cover"
                   />
                 </div>
               </div>
@@ -161,35 +153,11 @@ const AboutPage = () => {
           </div>
         </div>
       </section>
-      
-      {/* Subsidiary Companies Section */}
-      <section className="py-16 bg-white">
+
+      {/* Values Section - Enhanced with new design */}
+      <section className="py-16 bg-[#F8F1E4]">
         <div className="container">
-          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-transport-900">Our Subsidiary Companies</h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            {subsidiaries.map((subsidiary, index) => (
-              <div key={index} className="bg-gray-50 rounded-xl p-6 border border-gray-100">
-                <Building2 className="h-12 w-12 text-transport-700 mb-4" />
-                <h3 className="text-2xl font-bold mb-3 text-transport-900">{subsidiary.name}</h3>
-                <p className="text-gray-600 mb-6">{subsidiary.description}</p>
-                <div className="space-y-3">
-                  {subsidiary.features.map((feature, idx) => (
-                    <div key={idx} className="flex items-center gap-2">
-                      <CheckCircle size={16} className="text-transport-700 flex-shrink-0" />
-                      <span className="text-gray-700 text-sm">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-      
-      {/* Our Values */}
-      <section className="py-16 bg-gray-50">
-        <div className="container">
-          <div className="text-center max-w-3xl mx-auto mb-12">
+          <div className="text-center max-w-3xl mx-auto mb-12 animate-fade-in">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-transport-900">Our Core Values</h2>
             <p className="text-lg text-gray-600">
               These principles guide our operations and define our approach to transportation services.
@@ -198,8 +166,12 @@ const AboutPage = () => {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, index) => (
-              <div key={index} className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow border border-gray-100">
-                <div className="mb-6">{value.icon}</div>
+              <div 
+                key={index} 
+                className="glass p-8 rounded-lg hover-lift"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className="mb-6 text-transport-800">{value.icon}</div>
                 <h3 className="text-xl font-bold mb-3 text-transport-900">{value.title}</h3>
                 <p className="text-gray-600">{value.description}</p>
               </div>
@@ -207,34 +179,32 @@ const AboutPage = () => {
           </div>
         </div>
       </section>
-      
-      {/* Mission & Vision */}
-      <section className="py-16 bg-white">
+
+      {/* Mission & Vision - Enhanced with gradients */}
+      <section className="py-16 bg-[#F0F6FF]">
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12">
-            <div className="bg-transport-900 text-white p-8 md:p-12 rounded-lg relative overflow-hidden">
+            <div className="bg-gradient-to-br from-transport-900 to-transport-800 text-white p-8 md:p-12 rounded-lg relative overflow-hidden hover-lift animate-fade-in">
               <div className="absolute top-0 right-0 w-32 h-32 bg-transport-700 opacity-30 rounded-bl-full"></div>
-              
-              <Target className="h-14 w-14 mb-6 text-accent" />
+              <Target className="h-14 w-14 mb-6 text-accent animate-float" />
               <h3 className="text-2xl md:text-3xl font-bold mb-4">Our Mission</h3>
-              <p className="text-gray-300 mb-4">
-                Our mission is to build a strong, sustainable transport business by creating a work culture that values both our customers and our team. Our focus is on taking initiative, solving problems quickly, avoiding conflicts, and working together to achieve company goals while following all rules and policies.
+              <p className="text-gray-300 mb-4 leading-relaxed">
+                Our mission is to build a strong, sustainable transport business by creating a work culture that values both our customers and our team.
               </p>
             </div>
             
-            <div className="bg-accent/10 p-8 md:p-12 rounded-lg relative overflow-hidden">
+            <div className="glass p-8 md:p-12 rounded-lg relative overflow-hidden hover-lift animate-fade-in" style={{ animationDelay: "0.2s" }}>
               <div className="absolute bottom-0 left-0 w-32 h-32 bg-accent opacity-20 rounded-tr-full"></div>
-              
-              <Target className="h-14 w-14 mb-6 text-transport-900" />
+              <Target className="h-14 w-14 mb-6 text-transport-900 animate-float" />
               <h3 className="text-2xl md:text-3xl font-bold mb-4 text-transport-900">Our Vision</h3>
-              <p className="text-gray-700 mb-4">
-                Our vision is to become a trusted pan-India transportation and logistics company, delivering reliable and timely services across the country. In the future, we aim to expand our operations by offering warehousing solutions to both private companies and the general public, along with efficient packaging services to support their storage and distribution needs.
+              <p className="text-gray-700 mb-4 leading-relaxed">
+                Our vision is to become a trusted pan-India transportation and logistics company, delivering reliable and timely services across the country.
               </p>
             </div>
           </div>
         </div>
       </section>
-      
+
       {/* Company Timeline */}
       <section className="py-16 bg-gray-50">
         <div className="container">
@@ -273,15 +243,15 @@ const AboutPage = () => {
         </div>
       </section>
       
-      {/* Team CTA */}
-      <section className="py-16 bg-transport-900 text-white">
-        <div className="container text-center">
+      {/* Team CTA - Enhanced with gradient */}
+      <section className="py-16 bg-gradient-to-br from-transport-900 to-transport-800 text-white">
+        <div className="container text-center animate-fade-in">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">Join Our Growing Team</h2>
           <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
             We're always looking for talented professionals who share our values and vision.
             Discover career opportunities at Farhan Transport.
           </p>
-          <Button asChild className="bg-accent text-black hover:bg-accent/90" size="lg">
+          <Button asChild className="bg-accent hover:bg-accent/90 animate-float" size="lg">
             <Link to="/careers">View Career Opportunities</Link>
           </Button>
         </div>
