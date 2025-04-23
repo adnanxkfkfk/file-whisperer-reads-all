@@ -1,3 +1,4 @@
+
 import Layout from "@/components/Layout";
 import { CheckCircle, TruckIcon, ShieldCheck, Users, Award, Target, Building2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -90,7 +91,10 @@ const AboutPage = () => {
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">About Farhan Transport</h1>
             <p className="text-xl text-gray-300 mb-8">
-              Learn about our journey, values, and commitment to providing trusted transport solutions since 2008.
+              Farhan Transport Service (FTS) is a Vikhroli, Mumbai-based transport company established on 1st January 2017. We believe in building long-term relationships through reliable, timely, and transparent delivery services.<br />
+              With over 8 years of experience, we have proudly served reputed clients such as Godrej &amp; Boyce Ltd, Malhar Enterprises, Loadshare Network, MP Logistics, and DK Logistics. Our fleet of well-maintained vehicles and professionally trained drivers ensures the safe and efficient transportation of goods, while our organized staff keeps day-to-day operations running smoothly.<br />
+              We are also committed to environmental responsibility by using CNG-fueled vehicles and reusing waste materials wherever possible.<br />
+              With a dedicated team of over 30+ drivers and labourers, strong client trust, consistent performance, and a sharp focus on timely delivery, FTS aims to be your preferred logistics and transportation partner.
             </p>
           </div>
         </div>
@@ -214,10 +218,7 @@ const AboutPage = () => {
               <Target className="h-14 w-14 mb-6 text-accent" />
               <h3 className="text-2xl md:text-3xl font-bold mb-4">Our Mission</h3>
               <p className="text-gray-300 mb-4">
-                To provide reliable, efficient, and safe transportation solutions that exceed customer expectations and contribute to their success.
-              </p>
-              <p className="text-gray-300">
-                We achieve this by investing in modern technology, maintaining rigorous safety standards, and employing dedicated professionals who share our commitment to excellence.
+                Our mission is to build a strong, sustainable transport business by creating a work culture that values both our customers and our team. Our focus is on taking initiative, solving problems quickly, avoiding conflicts, and working together to achieve company goals while following all rules and policies.
               </p>
             </div>
             
@@ -227,10 +228,7 @@ const AboutPage = () => {
               <Target className="h-14 w-14 mb-6 text-transport-900" />
               <h3 className="text-2xl md:text-3xl font-bold mb-4 text-transport-900">Our Vision</h3>
               <p className="text-gray-700 mb-4">
-                To be the most trusted and preferred transportation partner, recognized for our reliability, innovation, and commitment to sustainable logistics practices.
-              </p>
-              <p className="text-gray-700">
-                We strive to set industry standards for service quality, customer satisfaction, and environmental responsibility while expanding our global footprint.
+                Our vision is to become a trusted pan-India transportation and logistics company, delivering reliable and timely services across the country. In the future, we aim to expand our operations by offering warehousing solutions to both private companies and the general public, along with efficient packaging services to support their storage and distribution needs.
               </p>
             </div>
           </div>
