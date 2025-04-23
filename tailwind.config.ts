@@ -23,49 +23,30 @@ export default {
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         transport: {
-          50: '#f0f5ff',
-          100: '#e5edff',
-          200: '#cddbfe',
-          300: '#a8bffc',
-          400: '#7a96f7',
-          500: '#556fee',
+          50: '#F0F6FF',
+          100: '#E3F2FD',
+          200: '#F8F1E4',
+          300: '#EFE5DC',
+          400: '#F5F5F5',
+          500: '#EAEAEA',
           600: '#3949e0',
           700: '#2d3bc6',
           800: '#2832a0',
           900: '#1a365d',
         },
-        custom: {
-          white: '#FFFFFF',
-          black: '#000000',
-          green: {
-            light: '#E2FCE2',
-            DEFAULT: '#2ECC71',
-            dark: '#27AE60'
-          },
-          orange: {
-            light: '#FEC6A1',
-            DEFAULT: '#F97316',
-            dark: '#D35400'
-          },
-          blue: {
-            light: '#AED8E0',
-            DEFAULT: '#1EAEDB',
-            dark: '#0EA5E9'
-          }
-        },
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
+        background: '#F0F6FF',
+        foreground: '#2832a0',
         primary: {
-          DEFAULT: "hsl(var(--primary))", // Green
-          foreground: "hsl(var(--primary-foreground))"
+          DEFAULT: '#2ECC71',
+          foreground: '#F8F1E4'
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))", // Orange
-          foreground: "hsl(var(--secondary-foreground))"
+          DEFAULT: '#F97316',
+          foreground: '#F0F6FF'
         },
         accent: {
-          DEFAULT: "hsl(var(--accent))", // Dark blue
-          foreground: "hsl(var(--accent-foreground))"
+          DEFAULT: '#1EAEDB',
+          foreground: '#F8F1E4'
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",

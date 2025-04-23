@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -48,7 +47,7 @@ const Navbar = () => {
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 backdrop-blur-sm ${
         isScrolled
-          ? "bg-white/80 shadow-lg py-3"
+          ? "bg-transport-50/80 shadow-lg py-3"
           : "bg-transparent py-4 md:py-6"
       }`}
     >
@@ -64,7 +63,7 @@ const Navbar = () => {
             <h1 className="text-xl md:text-2xl font-bold text-transport-900">
               Farhan Transport
             </h1>
-            <p className="text-xs text-accent -mt-1">
+            <p className="text-xs text-accent">
               Transporting with Trust
             </p>
           </div>
@@ -85,7 +84,7 @@ const Navbar = () => {
             ))}
           </div>
           <Button 
-            className="bg-accent hover:bg-accent/90 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+            className="bg-transport-900 hover:bg-transport-800 text-transport-50 shadow-lg hover:shadow-xl transition-all duration-300"
             onClick={handleBookingClick}
           >
             Book Now
@@ -101,7 +100,7 @@ const Navbar = () => {
       </div>
 
       {isMenuOpen && (
-        <div className="md:hidden bg-white/95 backdrop-blur-sm absolute top-full left-0 right-0 shadow-lg animate-slide-down">
+        <div className="md:hidden bg-transport-50/95 backdrop-blur-sm absolute top-full left-0 right-0 shadow-lg animate-slide-down">
           <div className="container mx-auto py-4 flex flex-col">
             {navLinks.map((link) => (
               <Link
@@ -116,7 +115,7 @@ const Navbar = () => {
               </Link>
             ))}
             <Button 
-              className="mt-4 bg-accent hover:bg-accent/90 text-white"
+              className="mt-4 bg-transport-900 hover:bg-transport-800 text-transport-50"
               onClick={() => {
                 setIsMenuOpen(false);
                 handleBookingClick();
