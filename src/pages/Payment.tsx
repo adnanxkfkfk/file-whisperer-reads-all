@@ -1,6 +1,6 @@
 
 import Layout from "@/components/Layout";
-import { CreditCard, WhatsApp, Cash } from "lucide-react";
+import { CreditCard, Banknote, MessageCircle } from "lucide-react";
 
 // Images for payment support
 const upiImage = "/lovable-uploads/upi-sample.png";
@@ -42,9 +42,9 @@ const Payment = () => {
 
             {/* Cash Option */}
             <div className="shadow-lg rounded-lg bg-white flex flex-col items-center p-6 border border-gray-100">
-              <Cash className="text-green-600 mb-4" size={48} />
+              <Banknote className="text-green-600 mb-4" size={48} />
               <div className="w-36 h-20 flex items-center justify-center mb-3">
-                <WhatsApp className="text-green-500" size={40} />
+                <MessageCircle className="text-green-500" size={40} />
               </div>
               <div className="text-base font-semibold mb-2">Cash Payment</div>
               <div className="text-sm text-gray-500 text-center">Pay cash on delivery</div>
@@ -52,7 +52,7 @@ const Payment = () => {
                 onClick={handleCashOption}
                 className="mt-4 px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors flex items-center gap-2"
               >
-                <WhatsApp size={20} />
+                <MessageCircle size={20} />
                 Contact on WhatsApp
               </button>
             </div>
