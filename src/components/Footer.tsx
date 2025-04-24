@@ -84,15 +84,18 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-start gap-3">
                 <MapPin className="mt-1 flex-shrink-0 text-custom-green" size={18} />
-                <span className="text-custom-white/80">123 Transport Avenue, Business District, City, Country</span>
+                <span className="text-custom-white/80">B-104, Solitaire, mira bhayander road, opp. solitaire building, Mumbai-400101</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone size={18} className="text-custom-green" />
-                <span className="text-custom-white/80">+1 (555) 123-4567</span>
+                <span className="text-custom-white/80">
+                  WhatsApp: +91 8097801972<br />
+                  Enquiry: +91 9769362964
+                </span>
               </li>
               <li className="flex items-center gap-3">
                 <Mail size={18} className="text-custom-green" />
-                <span className="text-custom-white/80">info@farhantransport.com</span>
+                <span className="text-custom-white/80">FarhanTransportService.com</span>
               </li>
               <li className="flex items-start gap-3">
                 <Clock className="mt-1 flex-shrink-0 text-custom-green" size={18} />
