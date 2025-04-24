@@ -100,11 +100,11 @@ serve(async (req) => {
   if (corsResponse) return corsResponse;
   
   const url = new URL(req.url);
-  const pathname = url.pathname.split('/').pop();
+  const pathname = url.pathname;
   
   try {
     // Create payment order
-    if (pathname === "create-order" && req.method === "POST") {
+    if (pathname.includes("/create-order") && req.method === "POST") {
       const { bookingId } = await req.json();
       
       if (!bookingId) {
@@ -151,7 +151,7 @@ serve(async (req) => {
     }
     
     // Verify payment
-    else if (pathname === "verify-payment" && req.method === "POST") {
+    else if (pathname.includes("/verify-payment") && req.method === "POST") {
       const { razorpayOrderId, razorpayPaymentId, razorpaySignature, bookingId } = await req.json();
       
       if (!razorpayOrderId || !razorpayPaymentId || !razorpaySignature || !bookingId) {

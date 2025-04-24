@@ -79,7 +79,7 @@ const Payment = () => {
           action: "create-order" 
         },
         method: "POST",
-        path: "create-order",
+        functionName: "payment/create-order", // Use functionName instead of path
       });
 
       if (response.error) {
@@ -111,7 +111,7 @@ const Payment = () => {
                 bookingId: bookingId,
               },
               method: "POST",
-              path: "verify-payment",
+              functionName: "payment/verify-payment", // Use functionName instead of path
             });
 
             if (verificationResponse.error) {
