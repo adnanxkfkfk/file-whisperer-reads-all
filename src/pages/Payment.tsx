@@ -78,7 +78,6 @@ const Payment = () => {
           action: "create-order" 
         },
         method: "POST",
-        function: "create-order",
       });
 
       if (response.error) {
@@ -110,7 +109,6 @@ const Payment = () => {
                 bookingId: bookingId,
               },
               method: "POST",
-              function: "verify-payment",
             });
 
             if (verificationResponse.error) {

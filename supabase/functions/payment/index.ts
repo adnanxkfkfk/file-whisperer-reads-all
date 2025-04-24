@@ -99,14 +99,12 @@ serve(async (req) => {
   const corsResponse = handleCors(req);
   if (corsResponse) return corsResponse;
   
-  const url = new URL(req.url);
-  const pathname = url.pathname;
-  
   try {
+    // Parse the request body
+    const { action, bookingId, razorpayOrderId, razorpayPaymentId, razorpaySignature } = await req.json();
+    
     // Create payment order
-    if (pathname.includes("/create-order") && req.method === "POST") {
-      const { bookingId } = await req.json();
-      
+    if (action === "create-order") {
       if (!bookingId) {
         return response(400, { status: "error", message: "Missing bookingId" });
       }
@@ -151,9 +149,7 @@ serve(async (req) => {
     }
     
     // Verify payment
-    else if (pathname.includes("/verify-payment") && req.method === "POST") {
-      const { razorpayOrderId, razorpayPaymentId, razorpaySignature, bookingId } = await req.json();
-      
+    else if (action === "verify-payment" || razorpayOrderId) {
       if (!razorpayOrderId || !razorpayPaymentId || !razorpaySignature || !bookingId) {
         return response(400, { status: "error", message: "Missing required parameters" });
       }
@@ -177,8 +173,8 @@ serve(async (req) => {
       return response(200, { status: "success", message: "Payment verified successfully" });
     }
     
-    // Return 404 for any other route
-    return response(404, { status: "error", message: "Route not found" });
+    // Return 400 for any other action
+    return response(400, { status: "error", message: "Invalid action" });
     
   } catch (error) {
     console.error("Error in payment function:", error);
