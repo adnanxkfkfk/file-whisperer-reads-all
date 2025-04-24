@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Layout from "@/components/Layout";
@@ -79,7 +78,7 @@ const Payment = () => {
           action: "create-order" 
         },
         method: "POST",
-        functionName: "payment/create-order", // Use functionName instead of path
+        function: "create-order",
       });
 
       if (response.error) {
@@ -111,7 +110,7 @@ const Payment = () => {
                 bookingId: bookingId,
               },
               method: "POST",
-              functionName: "payment/verify-payment", // Use functionName instead of path
+              function: "verify-payment",
             });
 
             if (verificationResponse.error) {
