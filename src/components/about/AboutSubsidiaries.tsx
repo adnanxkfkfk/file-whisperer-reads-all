@@ -29,13 +29,19 @@ export const AboutSubsidiaries = () => {
   return (
     <section className="py-16 bg-[#F0F6FF]">
       <div className="container">
-        <h2 className="text-3xl font-bold mb-8 text-center text-transport-900">Our Subsidiary Companies</h2>
+        <div className="text-center max-w-3xl mx-auto mb-12 animate-fade-in">
+          <h2 className="text-3xl font-bold mb-4 text-transport-900">Our Subsidiary Companies</h2>
+          <p className="text-lg text-gray-600">
+            Our family of specialized business units working together to provide comprehensive logistics solutions.
+          </p>
+        </div>
         
         <div className="grid md:grid-cols-2 gap-8">
           {subsidiaries.map((company, index) => (
             <div 
               key={index} 
-              className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all glass border border-transport-100/20"
+              className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all glass border border-transport-100/20 hover-lift"
+              style={{ animationDelay: `${index * 0.2}s` }}
             >
               <div className="flex items-start gap-4 mb-4">
                 <div className="bg-transport-100 p-3 rounded-lg">
