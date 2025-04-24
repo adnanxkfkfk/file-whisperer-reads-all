@@ -39,6 +39,7 @@ import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import OtpVerification from "./OtpVerification";
+import { VehicleTypeSelect } from "./VehicleTypeSelect";
 
 const formSchema = z.object({
   fullName: z.string().min(2, {
@@ -71,6 +72,21 @@ const formSchema = z.object({
   }),
   addressLine2: z.string().optional(),
   addressLine3: z.string().optional(),
+  vehicleType: z.string().optional(),
+  pickupAddressLine1: z.string().min(5, {
+    message: "Pickup address line 1 is required.",
+  }),
+  pickupAddressLine2: z.string().optional(),
+  pickupPincode: z.string().min(6, {
+    message: "Please enter a valid pickup pincode.",
+  }),
+  deliveryAddressLine1: z.string().min(5, {
+    message: "Delivery address line 1 is required.",
+  }),
+  deliveryAddressLine2: z.string().optional(),
+  deliveryPincode: z.string().min(6, {
+    message: "Please enter a valid delivery pincode.",
+  }),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -103,6 +119,13 @@ const BookingForm = () => {
       addressLine1: "",
       addressLine2: "",
       addressLine3: "",
+      vehicleType: "",
+      pickupAddressLine1: "",
+      pickupAddressLine2: "",
+      pickupPincode: "",
+      deliveryAddressLine1: "",
+      deliveryAddressLine2: "",
+      deliveryPincode: "",
     },
   });
 
@@ -285,7 +308,7 @@ const BookingForm = () => {
           </div>
 
           <h2 className="text-xl font-semibold mb-4 pt-4">Package Details</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <FormField
               control={form.control}
               name="numPackages"
@@ -313,18 +336,20 @@ const BookingForm = () => {
                 </FormItem>
               )}
             />
+            
+            <VehicleTypeSelect form={form} />
           </div>
           
-          <h2 className="text-xl font-semibold mb-4 pt-4">Pickup & Delivery Information</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <h2 className="text-xl font-semibold mb-4 pt-4">Pickup Information</h2>
+          <div className="space-y-4">
             <FormField
               control={form.control}
-              name="originPincode"
+              name="pickupAddressLine1"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Origin Pincode *</FormLabel>
+                  <FormLabel>Pickup Address Line 1 *</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter origin area pincode" {...field} />
+                    <Input placeholder="Street address, building, etc." {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -333,12 +358,12 @@ const BookingForm = () => {
             
             <FormField
               control={form.control}
-              name="destinationPincode"
+              name="pickupAddressLine2"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Destination Pincode *</FormLabel>
+                  <FormLabel>Pickup Address Line 2</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter destination area pincode" {...field} />
+                    <Input placeholder="Apartment, suite, unit, etc." {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -347,45 +372,64 @@ const BookingForm = () => {
             
             <FormField
               control={form.control}
-              name="pickupDate"
+              name="pickupPincode"
               render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel>Preferred Pickup Date *</FormLabel>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <FormControl>
-                        <Button
-                          variant={"outline"}
-                          className={cn(
-                            "w-full pl-3 text-left font-normal",
-                            !field.value && "text-muted-foreground"
-                          )}
-                        >
-                          {field.value ? (
-                            format(field.value, "PPP")
-                          ) : (
-                            <span>Pick a date</span>
-                          )}
-                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                        </Button>
-                      </FormControl>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
-                      <Calendar
-                        mode="single"
-                        selected={field.value}
-                        onSelect={field.onChange}
-                        disabled={(date) => date < new Date()}
-                        initialFocus
-                      />
-                    </PopoverContent>
-                  </Popover>
+                <FormItem>
+                  <FormLabel>Pickup Pincode *</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Enter pickup area pincode" {...field} />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
           </div>
           
+          <h2 className="text-xl font-semibold mb-4 pt-4">Delivery Information</h2>
+          <div className="space-y-4">
+            <FormField
+              control={form.control}
+              name="deliveryAddressLine1"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Delivery Address Line 1 *</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Street address, building, etc." {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            
+            <FormField
+              control={form.control}
+              name="deliveryAddressLine2"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Delivery Address Line 2</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Apartment, suite, unit, etc." {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            
+            <FormField
+              control={form.control}
+              name="deliveryPincode"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Delivery Pincode *</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Enter delivery area pincode" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
           <h2 className="text-xl font-semibold mb-4 pt-4">Address Details</h2>
           <div className="space-y-4">
             <FormField

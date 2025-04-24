@@ -1,4 +1,3 @@
-
 import Layout from "@/components/Layout";
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
@@ -68,12 +67,12 @@ const ContactPage = () => {
     {
       icon: <MapPin className="h-6 w-6 text-transport-800" />,
       title: "Our Location",
-      content: "123 Transport Avenue, Business District, City, Country"
+      content: "B-104, Solitaire, mira bhayander road, opp. solitaire building, Mumbai-400101"
     },
     {
       icon: <Phone className="h-6 w-6 text-transport-800" />,
-      title: "Phone Number",
-      content: "+1 (555) 123-4567"
+      title: "Contact Numbers",
+      content: "WhatsApp: +91 8097801972\nEnquiry: +91 9769362964"
     },
     {
       icon: <Mail className="h-6 w-6 text-transport-800" />,
@@ -261,7 +260,7 @@ const ContactPage = () => {
             {/* Map */}
             <div className="h-[500px] md:h-auto rounded-lg overflow-hidden">
               <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d317718.69319292053!2d-0.3817765050863085!3d51.528307984912544!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47d8a00baf21de75%3A0x52963a5addd52a99!2sLondon%2C%20UK!5e0!3m2!1sen!2sca!4v1646716994320!5m2!1sen!2sca" 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3767.4812424460245!2d72.84855027499707!3d19.222427982012733!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b0d42c95bdf9%3A0xf116125392e7a157!2sB-104%2C%20Mira%20Bhayandar%20Rd%2C%20opposite%20Solitaire%20Building%2C%20Mumbai%2C%20Maharashtra%20400101!5e0!3m2!1sen!2sin!4v1708481234567!5m2!1sen!2sin"
                 width="100%" 
                 height="100%" 
                 style={{ border: 0 }} 
