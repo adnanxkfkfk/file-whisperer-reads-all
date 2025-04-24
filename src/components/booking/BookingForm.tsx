@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -96,8 +96,8 @@ const BookingForm = () => {
   const [showVerification, setShowVerification] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
-  // Get service types
   const { data: serviceTypes } = useQuery({
     queryKey: ["serviceTypes"],
     queryFn: async () => {
@@ -152,6 +152,8 @@ const BookingForm = () => {
         oa: data.addressLine1,
         da: `${data.addressLine2 || ''} ${data.addressLine3 || ''}`.trim(),
         order_id: orderId,
+        amount: 100,
+        paid: false
       };
 
       const { data: result, error } = await supabase
@@ -162,11 +164,16 @@ const BookingForm = () => {
       if (error) throw error;
       return result;
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       toast({
         title: "Booking Successful",
-        description: "Your service booking has been confirmed.",
+        description: "Your service booking has been confirmed. Proceed to payment.",
       });
+      
+      if (data && data[0] && data[0].order_id) {
+        navigate(`/payment?id=${data[0].order_id}`);
+      }
+      
       form.reset();
       setIsVerified(false);
     },
