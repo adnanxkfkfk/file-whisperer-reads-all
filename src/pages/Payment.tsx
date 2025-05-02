@@ -1,14 +1,45 @@
 
 import Layout from "@/components/Layout";
 import { CreditCard, Banknote, MessageCircle } from "lucide-react";
+import { toast } from "@/components/ui/use-toast";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // Images for payment support
 const upiImage = "/lovable-uploads/upi-sample.png";
 const cardImage = "/lovable-uploads/card-sample.png";
 
 const Payment = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
   const handleCashOption = () => {
     window.open('https://wa.me/918097801972', '_blank');
+  };
+
+  const handleOnlinePayment = async () => {
+    setIsLoading(true);
+    
+    try {
+      // In a real implementation, this would connect to a payment gateway
+      // For now, we'll simulate a successful payment after a short delay
+      setTimeout(() => {
+        toast({
+          title: "Payment Successful",
+          description: "Your payment was processed successfully",
+        });
+        setIsLoading(false);
+        navigate("/booking");
+      }, 2000);
+    } catch (error) {
+      console.error("Payment error:", error);
+      toast({
+        title: "Payment Failed",
+        description: "There was an issue processing your payment. Please try again.",
+        variant: "destructive"
+      });
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -28,15 +59,23 @@ const Payment = () => {
                 src={upiImage}
                 alt="UPI payment supported"
                 className="w-36 h-20 object-contain mb-3 rounded-lg bg-white border"
-                onError={(e) => { (e.currentTarget as HTMLImageElement).src = "public/logo.png"; }}
+                onError={(e) => { (e.currentTarget as HTMLImageElement).src = "/logo.png"; }}
               />
               <div className="text-base font-semibold mb-2">Online Payment</div>
               <div className="text-sm text-gray-500 text-center">UPI, Credit & Debit Cards</div>
               <button 
-                onClick={() => alert('Redirecting to payment gateway...')} 
-                className="mt-4 px-6 py-2 bg-transport-700 text-white rounded-md hover:bg-transport-800 transition-colors"
+                onClick={handleOnlinePayment} 
+                className="mt-4 px-6 py-2 bg-transport-700 text-white rounded-md hover:bg-transport-800 transition-colors flex items-center gap-2"
+                disabled={isLoading}
               >
-                Pay Online
+                {isLoading ? (
+                  <>
+                    <div className="h-4 w-4 rounded-full border-2 border-t-transparent border-white animate-spin"></div>
+                    Processing...
+                  </>
+                ) : (
+                  "Pay Online"
+                )}
               </button>
             </div>
 
