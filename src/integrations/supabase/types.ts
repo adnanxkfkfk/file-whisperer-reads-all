@@ -9,13 +9,96 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      bookings: {
+        Row: {
+          amount: number | null
+          aw: number | null
+          created_at: string | null
+          da: string | null
+          dpin: string | null
+          email: string | null
+          id: string
+          km: number | null
+          name: string | null
+          np: string | null
+          number: string | null
+          oa: string | null
+          opin: string | null
+          order_id: string
+          paid: boolean | null
+          stype: string | null
+          vtype: string | null
+        }
+        Insert: {
+          amount?: number | null
+          aw?: number | null
+          created_at?: string | null
+          da?: string | null
+          dpin?: string | null
+          email?: string | null
+          id?: string
+          km?: number | null
+          name?: string | null
+          np?: string | null
+          number?: string | null
+          oa?: string | null
+          opin?: string | null
+          order_id: string
+          paid?: boolean | null
+          stype?: string | null
+          vtype?: string | null
+        }
+        Update: {
+          amount?: number | null
+          aw?: number | null
+          created_at?: string | null
+          da?: string | null
+          dpin?: string | null
+          email?: string | null
+          id?: string
+          km?: number | null
+          name?: string | null
+          np?: string | null
+          number?: string | null
+          oa?: string | null
+          opin?: string | null
+          order_id?: string
+          paid?: boolean | null
+          stype?: string | null
+          vtype?: string | null
+        }
+        Relationships: []
+      }
+      service_types: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: number
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: number
+          name: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: number
+          name?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      verify_otp: {
+        Args: { phone: string; otp: string }
+        Returns: boolean
+      }
     }
     Enums: {
       [_ in never]: never

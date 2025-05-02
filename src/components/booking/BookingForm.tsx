@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { z } from "zod";
@@ -40,6 +41,14 @@ import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import OtpVerification from "./OtpVerification";
 import { VehicleTypeSelect } from "./VehicleTypeSelect";
+
+// Define types for service types
+type ServiceType = {
+  id: number;
+  name: string;
+  description: string | null;
+  created_at: string;
+};
 
 const formSchema = z.object({
   fullName: z.string().min(2, {
@@ -97,13 +106,16 @@ const BookingForm = () => {
   const [isVerified, setIsVerified] = useState(false);
   const { toast } = useToast();
 
-  // Get service types
+  // Get service types with proper typing
   const { data: serviceTypes } = useQuery({
     queryKey: ["serviceTypes"],
     queryFn: async () => {
-      const { data, error } = await supabase.from("service_types").select("*");
+      const { data, error } = await supabase
+        .from("service_types")
+        .select("*");
+      
       if (error) throw error;
-      return data;
+      return data as ServiceType[];
     },
   });
 
@@ -140,11 +152,17 @@ const BookingForm = () => {
     mutationFn: async (data: FormValues) => {
       const orderId = `ORD-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
       
+      let serviceTypeName = "Unknown";
+      if (serviceTypes) {
+        const selectedType = serviceTypes.find(t => t.id.toString() === data.serviceTypeId);
+        serviceTypeName = selectedType?.name || data.serviceTypeId;
+      }
+      
       const bookingData = {
         name: data.fullName,
         number: data.mobileNumber,
         email: data.email,
-        stype: serviceTypes?.find(t => t.id.toString() === data.serviceTypeId)?.name || data.serviceTypeId,
+        stype: serviceTypeName,
         np: data.numPackages.toString(),
         aw: data.approximateWeight || null,
         opin: data.originPincode,
