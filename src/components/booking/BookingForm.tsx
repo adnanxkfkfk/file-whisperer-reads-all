@@ -26,20 +26,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { 
-  Dialog,
-  DialogContent,
-} from "@/components/ui/dialog";
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
-import OtpVerification from "./OtpVerification";
 import { VehicleTypeSelect } from "./VehicleTypeSelect";
 
 // Define types for service types
@@ -67,20 +61,6 @@ const formSchema = z.object({
     message: "Number of packages must be at least 1.",
   }),
   approximateWeight: z.coerce.number().optional(),
-  originPincode: z.string().min(6, {
-    message: "Please enter a valid origin pincode.",
-  }),
-  destinationPincode: z.string().min(6, {
-    message: "Please enter a valid destination pincode.",
-  }),
-  pickupDate: z.date({
-    required_error: "Please select a pickup date.",
-  }),
-  addressLine1: z.string().min(5, {
-    message: "Address line 1 is required.",
-  }),
-  addressLine2: z.string().optional(),
-  addressLine3: z.string().optional(),
   vehicleType: z.string().optional(),
   pickupAddressLine1: z.string().min(5, {
     message: "Pickup address line 1 is required.",
@@ -102,8 +82,6 @@ type FormValues = z.infer<typeof formSchema>;
 
 const BookingForm = () => {
   const [searchParams] = useSearchParams();
-  const [showVerification, setShowVerification] = useState(false);
-  const [isVerified, setIsVerified] = useState(false);
   const { toast } = useToast();
 
   // Get service types with proper typing
@@ -126,11 +104,6 @@ const BookingForm = () => {
       mobileNumber: "",
       email: "",
       numPackages: 1,
-      originPincode: "",
-      destinationPincode: "",
-      addressLine1: "",
-      addressLine2: "",
-      addressLine3: "",
       vehicleType: "",
       pickupAddressLine1: "",
       pickupAddressLine2: "",
@@ -165,11 +138,12 @@ const BookingForm = () => {
         stype: serviceTypeName,
         np: data.numPackages.toString(),
         aw: data.approximateWeight || null,
-        opin: data.originPincode,
-        dpin: data.destinationPincode,
-        oa: data.addressLine1,
-        da: `${data.addressLine2 || ''} ${data.addressLine3 || ''}`.trim(),
+        opin: data.pickupPincode,
+        dpin: data.deliveryPincode,
+        oa: data.pickupAddressLine1 + (data.pickupAddressLine2 ? `, ${data.pickupAddressLine2}` : ''),
+        da: data.deliveryAddressLine1 + (data.deliveryAddressLine2 ? `, ${data.deliveryAddressLine2}` : ''),
         order_id: orderId,
+        vtype: data.vehicleType || null
       };
 
       const { data: result, error } = await supabase
@@ -186,7 +160,6 @@ const BookingForm = () => {
         description: "Your service booking has been confirmed.",
       });
       form.reset();
-      setIsVerified(false);
     },
     onError: (error) => {
       toast({
@@ -198,51 +171,11 @@ const BookingForm = () => {
   });
 
   const onSubmit = (data: FormValues) => {
-    if (!isVerified) {
-      toast({
-        title: "Mobile Verification Required",
-        description: "Please verify your mobile number before proceeding.",
-        variant: "destructive",
-      });
-      setShowVerification(true);
-      return;
-    }
-    
     createBooking.mutate(data);
-  };
-
-  const handleVerifyClick = () => {
-    const mobileNumber = form.getValues("mobileNumber");
-    if (!mobileNumber || mobileNumber.length < 10) {
-      form.setError("mobileNumber", { 
-        message: "Please enter a valid mobile number before verification" 
-      });
-      return;
-    }
-    setShowVerification(true);
-  };
-
-  const handleVerificationSuccess = () => {
-    setIsVerified(true);
-    setShowVerification(false);
-    toast({
-      title: "Verification Successful",
-      description: "Your mobile number has been verified.",
-    });
   };
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-6">
-      <Dialog open={showVerification} onOpenChange={setShowVerification}>
-        <DialogContent className="sm:max-w-md">
-          <OtpVerification 
-            phoneNumber={form.getValues("mobileNumber")}
-            onVerificationSuccess={handleVerificationSuccess}
-            onCancel={() => setShowVerification(false)}
-          />
-        </DialogContent>
-      </Dialog>
-
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <h2 className="text-xl font-semibold mb-4">Personal Information</h2>
@@ -261,29 +194,19 @@ const BookingForm = () => {
               )}
             />
             
-            <div className="flex items-end space-x-2">
-              <FormField
-                control={form.control}
-                name="mobileNumber"
-                render={({ field }) => (
-                  <FormItem className="flex-1">
-                    <FormLabel>Mobile Number *</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter a valid mobile number" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button
-                type="button"
-                onClick={handleVerifyClick}
-                className={`mb-0.5 ${isVerified ? "bg-green-600 hover:bg-green-700" : ""}`}
-                disabled={isVerified}
-              >
-                {isVerified ? "Verified" : "Verify"}
-              </Button>
-            </div>
+            <FormField
+              control={form.control}
+              name="mobileNumber"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Mobile Number *</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Enter a valid mobile number" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             
             <FormField
               control={form.control}
@@ -441,51 +364,6 @@ const BookingForm = () => {
                   <FormLabel>Delivery Pincode *</FormLabel>
                   <FormControl>
                     <Input placeholder="Enter delivery area pincode" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-
-          <h2 className="text-xl font-semibold mb-4 pt-4">Address Details</h2>
-          <div className="space-y-4">
-            <FormField
-              control={form.control}
-              name="addressLine1"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Address Line 1 *</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Street address, building, etc." {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            
-            <FormField
-              control={form.control}
-              name="addressLine2"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Address Line 2</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Apartment, suite, unit, etc." {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            
-            <FormField
-              control={form.control}
-              name="addressLine3"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Address Line 3</FormLabel>
-                  <FormControl>
-                    <Textarea placeholder="Landmark or additional directions" className="resize-none" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
