@@ -4,22 +4,22 @@ import { Quote } from "lucide-react";
 
 const testimonials = [
   {
-    name: "Sarah Johnson",
-    position: "Logistics Manager, XYZ Corp",
-    image: "https://randomuser.me/api/portraits/women/45.jpg",
-    quote: "Farhan Transport has been our logistics partner for over 5 years. Their reliability and attention to detail have significantly improved our supply chain efficiency."
+    name: "Rajesh Sharma",
+    position: "Operations Manager, Godrej & Boyce Ltd",
+    image: "https://randomuser.me/api/portraits/men/45.jpg",
+    quote: "Farhan Transport Service has been our logistics partner for over 3 years. Their reliability and consistent delivery schedules have significantly improved our supply chain efficiency. We can always count on them for urgent deliveries."
   },
   {
-    name: "Michael Chen",
-    position: "Operations Director, Global Trade Ltd",
-    image: "https://randomuser.me/api/portraits/men/32.jpg",
-    quote: "The level of service provided by Farhan Transport is exceptional. Their team goes above and beyond to ensure timely delivery and excellent communication throughout the process."
+    name: "Priya Mehta",
+    position: "Supply Chain Head, Malhar Enterprises",
+    image: "https://randomuser.me/api/portraits/women/32.jpg",
+    quote: "We've been working with Farhan Transport Service since 2021. Their team is responsive and professional, ensuring our goods are delivered safely and on time. Their domestic warehousing solutions have been invaluable for our business operations."
   },
   {
-    name: "Amina Patel",
-    position: "CEO, Innovative Solutions Inc",
-    image: "https://randomuser.me/api/portraits/women/68.jpg",
-    quote: "Since partnering with Farhan Transport, we've seen a dramatic reduction in transit times and damages. Their commitment to quality service is unmatched in the industry."
+    name: "Vikram Patel",
+    position: "Director, MP Logistics",
+    image: "https://randomuser.me/api/portraits/men/68.jpg",
+    quote: "As a logistics company ourselves, we partner with Farhan Transport Service for specialized routes. Their expertise in both domestic and international shipping has helped us expand our service offerings to clients. Highly recommended!"
   }
 ];
 
@@ -28,9 +28,9 @@ const TestimonialsSection = () => {
     <section className="section-padding gradient-bg text-white">
       <div className="container">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="section-title text-white">What Our Clients Say</h2>
+          <h2 className="section-title text-white">Client Testimonials</h2>
           <p className="text-gray-200 text-lg">
-            Don't just take our word for it. Hear what our satisfied clients have to say about our transport services.
+            Here's what our clients have to say about our transport services.
           </p>
         </div>
         
