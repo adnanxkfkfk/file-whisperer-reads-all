@@ -1,5 +1,6 @@
+
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Building2 } from "lucide-react";
+import { CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const features = [
@@ -9,17 +10,6 @@ const features = [
   "Eco-friendly transportation practices",
   "Customized logistics solutions",
   "Transparent pricing with no hidden fees"
-];
-
-const subsidiaries = [
-  {
-    name: "MS Transport Service",
-    description: "Specialized in domestic freight and express delivery solutions across Mumbai, Maharashtra, and India."
-  },
-  {
-    name: "DS Logistics",
-    description: "Expert in supply chain management and international logistics solutions for Maharashtra business growth."
-  }
 ];
 
 const AboutSection = () => {
@@ -32,7 +22,7 @@ const AboutSection = () => {
             <div className="grid grid-cols-2 gap-4">
               <img
                 src="https://images.unsplash.com/photo-1562078809-77187a7eb124?ixlib=rb-4.0.3&auto=format&fit=crop&w=774&h=900&q=80"
-                alt="MS Transport Service Mumbai warehouse"
+                alt="Farhan Transport Service Mumbai warehouse"
                 className="rounded-lg object-cover w-full h-full shadow-md"
               />
               <div className="space-y-4">
@@ -43,7 +33,7 @@ const AboutSection = () => {
                 />
                 <img
                   src="https://images.unsplash.com/photo-1587293852726-70cdb56c2866?ixlib=rb-4.0.3&auto=format&fit=crop&w=774&h=450&q=80"
-                  alt="DS Logistics and transport planning"
+                  alt="Farhan Transport Service logistics and transport planning"
                   className="rounded-lg object-cover w-full h-[48%] shadow-md"
                 />
               </div>
@@ -57,29 +47,13 @@ const AboutSection = () => {
           {/* Right Column - Text */}
           <div>
             <h2 className="section-title mb-4">
-              About Farhan Transport Service – Trusted Transport Trucks, Logistics in Mumbai & Maharashtra
+              About Farhan Transport Service – Trusted Transport & Logistics in Mumbai & Maharashtra
             </h2>
             <p className="text-lg text-gray-700 mb-6">
-              Choose Farhan Transport Service for <b>transport trucks</b>, cargo delivery, and logistics solutions in Mumbai and Maharashtra since 2008.
-              Our transport service is trusted by businesses for safe, efficient, and timely Mumbai transport.
+              Choose Farhan Transport Service for transport, cargo delivery, and logistics solutions in Mumbai and across India since 2017.
+              Our transport service is trusted by businesses for safe, efficient, and timely transport with both domestic and international capabilities.
             </p>
             
-            {/* Subsidiary Companies */}
-            <div className="mb-8">
-              <h3 className="text-xl font-bold text-transport-900 mb-4">Our Subsidiary Companies</h3>
-              <div className="space-y-4">
-                {subsidiaries.map((subsidiary, index) => (
-                  <div key={index} className="flex items-start gap-3 bg-white p-4 rounded-lg shadow-sm">
-                    <Building2 className="text-transport-700 flex-shrink-0 mt-1" size={20} />
-                    <div>
-                      <h4 className="font-semibold text-transport-900">{subsidiary.name}</h4>
-                      <p className="text-sm text-gray-600">{subsidiary.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-3 mb-8">
               {features.map((feature, index) => (
                 <div key={index} className="flex items-center gap-2">

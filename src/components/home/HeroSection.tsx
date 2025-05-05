@@ -22,13 +22,13 @@ const HeroSection = () => {
                 <span className="bg-gradient-to-r from-transport-50 to-transport-100 bg-clip-text text-transparent"> Logistics Solutions</span>
               </h1>
               <p className="text-lg md:text-xl text-transport-200 mb-8 max-w-lg">
-                Your reliable partner for professional transport truck, cargo, and logistics services across Maharashtra and India.
+                Your reliable partner for professional transport services across domestic and international routes. We also provide warehousing solutions.
               </p>
             </div>
             
             <div className="flex flex-wrap gap-4 animate-slide-up" style={{ animationDelay: '0.2s' }}>
               <Button size="lg" asChild className="bg-transport-50 hover:bg-transport-100 text-transport-900">
-                <Link to="/services" className="flex items-center gap-2">
+                <Link to="/booking" className="flex items-center gap-2">
                   Book Now <Truck size={18} />
                 </Link>
               </Button>
@@ -66,7 +66,7 @@ const HeroSection = () => {
               <div className="w-[450px] h-[450px] bg-gradient-to-br from-transport-50/30 to-transport-100/30 rounded-full absolute -top-10 -left-10 animate-pulse"></div>
               <img 
                 src="/logo.png"
-                alt="Farhan Transport Service FTS logo truck"
+                alt="Farhan Transport Service logo truck"
                 className="relative z-10 rounded-lg object-contain h-[320px] w-[320px] bg-transport-50/5 p-6 backdrop-blur-sm transition-transform hover:scale-105 duration-300"
               />
               <div className="absolute -bottom-10 -right-10 bg-transport-50/10 p-6 rounded-lg shadow-xl z-20 backdrop-blur-sm animate-bounce">

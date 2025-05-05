@@ -1,5 +1,6 @@
+
 import { Link } from "react-router-dom";
-import { Phone, Mail, MapPin, Clock, Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
+import { Phone, Mail, MapPin, Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -18,7 +19,7 @@ const Footer = () => {
                 style={{ minWidth: "2.25rem" }}
               />
               <div>
-                <h3 className="text-xl font-bold">Farhan Transport</h3>
+                <h3 className="text-xl font-bold">Farhan Transport Service</h3>
                 <p className="text-xs text-custom-green-light">Transporting with Trust</p>
               </div>
             </div>
@@ -89,17 +90,13 @@ const Footer = () => {
               <li className="flex items-center gap-3">
                 <Phone size={18} className="text-custom-green" />
                 <span className="text-custom-white/80">
-                  WhatsApp: +91 8097801972<br />
-                  Enquiry: +91 9769362964
+                  WhatsApp: +91 9769362964<br />
+                  Enquiry: +91 9561804786
                 </span>
               </li>
               <li className="flex items-center gap-3">
                 <Mail size={18} className="text-custom-green" />
                 <span className="text-custom-white/80">FarhanTransportService.com</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <Clock className="mt-1 flex-shrink-0 text-custom-green" size={18} />
-                <span className="text-custom-white/80">Mon-Fri: 8:00 AM - 6:00 PM<br />Sat: 9:00 AM - 1:00 PM</span>
               </li>
             </ul>
           </div>

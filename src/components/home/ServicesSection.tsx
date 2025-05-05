@@ -38,7 +38,7 @@ const ServicesSection = () => {
         <div className="text-center max-w-3xl mx-auto mb-12">
           <h2 className="section-title">Roadway Transportation & Logistics Services</h2>
           <p className="section-subtitle">
-            Serving all over India, with a strong focus in Maharashtra. We provide reliable road transport solutions tailored to meet your specific moving needs.
+            Serving all over India and international destinations, with a strong focus in Maharashtra. We provide reliable transport solutions tailored to meet your specific moving needs.
           </p>
         </div>
         
@@ -65,8 +65,9 @@ const ServicesSection = () => {
         {/* CTA */}
         <div className="mt-16 text-center">
           <Button asChild size="lg" className="bg-transport-900 hover:bg-transport-800">
-            <Link to="/services">View All Services</Link>
+            <Link to="/booking">Book Now</Link>
           </Button>
+          <p className="mt-4 text-gray-600">Fast, reliable, and secure transportation services for all your needs.</p>
         </div>
       </div>
     </section>
