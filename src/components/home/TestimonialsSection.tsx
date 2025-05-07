@@ -1,4 +1,4 @@
-/*
+
 import { Card, CardContent } from "@/components/ui/card";
 import { Quote } from "lucide-react";
 
@@ -25,10 +25,10 @@ const testimonials = [
 
 const TestimonialsSection = () => {
   return (
-    <section className="section-padding gradient-bg text-white">
+    <section className="py-16 bg-transport-900 text-white">
       <div className="container">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="section-title text-white">Client Testimonials</h2>
+          <h2 className="text-3xl font-bold mb-4 text-white">Client Testimonials</h2>
           <p className="text-gray-200 text-lg">
             Here's what our clients have to say about our transport services.
           </p>
@@ -38,7 +38,7 @@ const TestimonialsSection = () => {
           {testimonials.map((testimonial, index) => (
             <Card key={index} className="bg-white/10 backdrop-blur-sm border-0 text-white hover:bg-white/20 transition-colors">
               <CardContent className="pt-8">
-                <Quote className="h-12 w-12 text-accent mb-6 opacity-80" />
+                <Quote className="h-12 w-12 text-custom-green-light mb-6 opacity-80" />
                 <p className="mb-8 italic text-gray-200">"{testimonial.quote}"</p>
                 <div className="flex items-center gap-4">
                   <img 
@@ -60,4 +60,4 @@ const TestimonialsSection = () => {
   );
 };
 
-export default TestimonialsSection; */
+export default TestimonialsSection;

@@ -13,7 +13,7 @@ const Footer = () => {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <img
-                src="public/logo.png"
+                src="/logo.png"
                 alt="FTS Logo"
                 className="h-9 w-9 object-contain"
                 style={{ minWidth: "2.25rem" }}
@@ -64,6 +64,16 @@ const Footer = () => {
               <li>
                 <Link to="/contact" className="text-custom-white/80 hover:text-custom-white transition-colors">
                   Contact Us
+                </Link>
+              </li>
+              <li>
+                <Link to="/faq" className="text-custom-white/80 hover:text-custom-white transition-colors">
+                  FAQ
+                </Link>
+              </li>
+              <li>
+                <Link to="/careers" className="text-custom-white/80 hover:text-custom-white transition-colors">
+                  Careers
                 </Link>
               </li>
               <li>
@@ -130,6 +140,7 @@ const Footer = () => {
             <div className="flex gap-4 mt-2 md:mt-0">
               <Link to="/privacy" className="hover:text-custom-white transition-colors">Privacy Policy</Link>
               <Link to="/terms" className="hover:text-custom-white transition-colors">Terms of Service</Link>
+              <Link to="/faq" className="hover:text-custom-white transition-colors">FAQ</Link>
             </div>
           </div>
         </div>
