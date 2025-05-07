@@ -1,16 +1,14 @@
 
 import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { format } from "date-fns";
 
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import {
   Form,
   FormControl,
@@ -26,14 +24,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { CalendarIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "@/hooks/use-toast";
 import { VehicleTypeSelect } from "./VehicleTypeSelect";
 
 // Define types for service types
@@ -82,17 +73,21 @@ type FormValues = z.infer<typeof formSchema>;
 
 const BookingForm = () => {
   const [searchParams] = useSearchParams();
-  const { toast } = useToast();
+  const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Get service types with proper typing
-  const { data: serviceTypes } = useQuery({
+  const { data: serviceTypes, isLoading: isLoadingServiceTypes } = useQuery({
     queryKey: ["serviceTypes"],
     queryFn: async () => {
       const { data, error } = await supabase
         .from("service_types")
         .select("*");
       
-      if (error) throw error;
+      if (error) {
+        console.error("Error fetching service types:", error);
+        throw error;
+      }
       return data as ServiceType[];
     },
   });
@@ -121,8 +116,10 @@ const BookingForm = () => {
     }
   }, [searchParams, serviceTypes, form]);
 
-  const createBooking = useMutation({
-    mutationFn: async (data: FormValues) => {
+  const handleSubmit = async (data: FormValues) => {
+    setIsSubmitting(true);
+    
+    try {
       const orderId = `ORD-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
       
       let serviceTypeName = "Unknown";
@@ -146,38 +143,56 @@ const BookingForm = () => {
         vtype: data.vehicleType || null
       };
 
+      console.log("Sending booking data:", bookingData);
+
       const { data: result, error } = await supabase
         .from("bookings")
         .insert(bookingData)
-        .select();
+        .select("*")
+        .single();
       
-      if (error) throw error;
-      return result;
-    },
-    onSuccess: () => {
+      if (error) {
+        console.error("Booking error:", error);
+        toast({
+          title: "Booking Failed",
+          description: error.message || "There was an error processing your booking. Please try again.",
+          variant: "destructive",
+        });
+        throw error;
+      }
+      
+      console.log("Booking successful:", result);
       toast({
         title: "Booking Successful",
-        description: "Your service booking has been confirmed.",
+        description: "Your service booking has been confirmed. Order ID: " + orderId,
       });
+      
       form.reset();
-    },
-    onError: (error) => {
-      toast({
-        title: "Booking Failed",
-        description: error.message,
-        variant: "destructive",
-      });
-    },
-  });
-
-  const onSubmit = (data: FormValues) => {
-    createBooking.mutate(data);
+      
+      // Redirect to confirmation page after a short delay
+      setTimeout(() => {
+        navigate(`/track?order=${orderId}`);
+      }, 2000);
+      
+    } catch (error: any) {
+      console.error("Form submission error:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
+  if (isLoadingServiceTypes) {
+    return (
+      <div className="text-center py-10">
+        <p>Loading service types...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-6">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
           <h2 className="text-xl font-semibold mb-4">Personal Information</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <FormField
@@ -376,9 +391,9 @@ const BookingForm = () => {
               type="submit" 
               size="lg" 
               className="w-full bg-transport-900 hover:bg-transport-800"
-              disabled={createBooking.isPending}
+              disabled={isSubmitting}
             >
-              {createBooking.isPending ? "Submitting..." : "Book Now"}
+              {isSubmitting ? "Submitting..." : "Book Now"}
             </Button>
           </div>
         </form>
