@@ -1,4 +1,5 @@
 
+import { Suspense } from "react";
 import Layout from "@/components/Layout";
 import BookingForm from "@/components/booking/BookingForm";
 
@@ -11,7 +12,9 @@ const BookingPage = () => {
           Fill out the form below to request our transport services. We'll get back to you promptly with confirmation details.
         </p>
         <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-lg p-6">
-          <BookingForm />
+          <Suspense fallback={<div className="text-center py-10">Loading booking form...</div>}>
+            <BookingForm />
+          </Suspense>
         </div>
       </div>
     </Layout>
