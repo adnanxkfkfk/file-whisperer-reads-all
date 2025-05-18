@@ -1,12 +1,12 @@
-
 import { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 import { supabase } from "@/integrations/supabase/client";
+import { createBooking } from "@/integrations/fts-api/client"; 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -120,62 +120,77 @@ const BookingForm = () => {
     setIsSubmitting(true);
     
     try {
-      const orderId = `ORD-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
-      
+      // Find service type name
       let serviceTypeName = "Unknown";
       if (serviceTypes) {
         const selectedType = serviceTypes.find(t => t.id.toString() === data.serviceTypeId);
-        serviceTypeName = selectedType?.name || data.serviceTypeId;
+        serviceTypeName = selectedType?.name || "General";
       }
       
-      const bookingData = {
+      // Format data for the API
+      const apiPayload = {
         name: data.fullName,
-        number: data.mobileNumber,
+        mobile: data.mobileNumber,
         email: data.email,
-        stype: serviceTypeName,
-        np: data.numPackages.toString(),
-        aw: data.approximateWeight || null,
-        opin: data.pickupPincode,
-        dpin: data.deliveryPincode,
-        oa: data.pickupAddressLine1 + (data.pickupAddressLine2 ? `, ${data.pickupAddressLine2}` : ''),
-        da: data.deliveryAddressLine1 + (data.deliveryAddressLine2 ? `, ${data.deliveryAddressLine2}` : ''),
-        order_id: orderId,
-        vtype: data.vehicleType || null
+        service_type: serviceTypeName,
+        number_of_packages: data.numPackages,
+        approximate_weight_kg: data.approximateWeight ? data.approximateWeight.toString() : undefined,
+        vehicle_type: data.vehicleType || undefined,
+        pickup_address_line_1: data.pickupAddressLine1,
+        pickup_address_line_2: data.pickupAddressLine2,
+        pickup_pincode: data.pickupPincode,
+        delivery_address_line_1: data.deliveryAddressLine1,
+        delivery_address_line_2: data.deliveryAddressLine2,
+        delivery_pincode: data.deliveryPincode
       };
-
-      console.log("Sending booking data:", bookingData);
-
-      const { data: result, error } = await supabase
-        .from("bookings")
-        .insert(bookingData)
-        .select("*")
-        .single();
       
-      if (error) {
-        console.error("Booking error:", error);
+      console.log("Sending booking data to API:", apiPayload);
+      
+      // Call the API
+      const result = await createBooking(apiPayload);
+      
+      if (result.success) {
+        const orderId = result.orderid;
+        
+        // Also save to local database for reference
+        await supabase
+          .from("bookings")
+          .insert({
+            name: data.fullName,
+            number: data.mobileNumber,
+            email: data.email,
+            stype: serviceTypeName,
+            np: data.numPackages.toString(),
+            aw: data.approximateWeight || null,
+            opin: data.pickupPincode,
+            dpin: data.deliveryPincode,
+            oa: data.pickupAddressLine1 + (data.pickupAddressLine2 ? `, ${data.pickupAddressLine2}` : ''),
+            da: data.deliveryAddressLine1 + (data.deliveryAddressLine2 ? `, ${data.deliveryAddressLine2}` : ''),
+            order_id: orderId,
+            vtype: data.vehicleType || null
+          });
+        
         toast({
-          title: "Booking Failed",
-          description: error.message || "There was an error processing your booking. Please try again.",
-          variant: "destructive",
+          title: "Booking Successful",
+          description: `Your booking has been confirmed! Order ID: ${orderId}`,
         });
-        throw error;
+        
+        form.reset();
+        
+        // Redirect to track page with the order ID
+        setTimeout(() => {
+          navigate(`/track?order=${orderId}`);
+        }, 1500);
+      } else {
+        throw new Error("Booking was not successful");
       }
-      
-      console.log("Booking successful:", result);
-      toast({
-        title: "Booking Successful",
-        description: "Your service booking has been confirmed. Order ID: " + orderId,
-      });
-      
-      form.reset();
-      
-      // Redirect to confirmation page after a short delay
-      setTimeout(() => {
-        navigate(`/track?order=${orderId}`);
-      }, 2000);
-      
     } catch (error: any) {
       console.error("Form submission error:", error);
+      toast({
+        title: "Booking Failed",
+        description: error.message || "There was an error processing your booking. Please try again.",
+        variant: "destructive",
+      });
     } finally {
       setIsSubmitting(false);
     }
