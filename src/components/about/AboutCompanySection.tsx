@@ -9,7 +9,7 @@ export const AboutCompanySection = () => {
           <div className="animate-slide-up">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 text-transport-900">Our Story</h2>
             <p className="text-gray-700 mb-4 leading-relaxed">
-              Founded in 2008, Farhan Transport began with a single truck and a vision to transform the transportation industry with reliable, customer-focused service.
+              Founded in 2017, Farhan Transport began with a single truck and a vision to transform the transportation industry with reliable, customer-focused service.
             </p>
             <div className="mt-8 glass p-6 hover-lift">
               <div className="flex items-center gap-4">
