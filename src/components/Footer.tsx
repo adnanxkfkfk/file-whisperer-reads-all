@@ -25,22 +25,25 @@ const Footer = () => {
             </div>
             <p className="text-custom-white/80 mb-4">
               Providing reliable transportation solutions with a commitment to excellence, safety, and customer satisfaction.
-            </p>
+            </p> 
             <div className="flex space-x-4">
-              <a href="#" className="text-custom-green-light hover:text-custom-green transition-colors">
-                <Facebook size={20} />
-              </a>
-              <a href="#" className="text-custom-green-light hover:text-custom-green transition-colors">
-                <Twitter size={20} />
-              </a>
-              <a href="#" className="text-custom-green-light hover:text-custom-green transition-colors">
-                <Instagram size={20} />
-              </a>
-              <a href="#" className="text-custom-green-light hover:text-custom-green transition-colors">
-                <Linkedin size={20} />
-              </a>
-            </div>
-          </div>
+  <a
+    href="https://www.linkedin.com/company/farhan-transport-service/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-custom-green-light hover:text-custom-green transition-colors"
+  >
+    <Linkedin size={20} />
+  </a>
+  <a
+    href="https://www.justdial.com/Mumbai/Farhan-Transport-Service-Near-Jain-Mandir-Vikhroli-West/022PXX22-XX22-200211111113-C8Q9_BZDET?utm_campaign=dtlpg-top&utm_medium=2&utm_source=share&rand3=&rand2=&rand1="
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-custom-green-light hover:text-custom-green transition-colors"
+  >
+    <span className="font-bold text-sm">Justdial</span>
+  </a>
+</div>
 
           {/* Column 2 - Quick Links */}
           <div>
@@ -95,7 +98,7 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-start gap-3">
                 <MapPin className="mt-1 flex-shrink-0 text-custom-green" size={18} />
-                <span className="text-custom-white/80">B-104, Solitaire, mira bhayander road, opp. solitaire building, Mumbai-400101</span>
+                <span className="text-custom-white/80">679-11, Akashdeep Society, Park Site Vikhroli West, Mumbai - 40079</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone size={18} className="text-custom-green" />
