@@ -1,30 +1,30 @@
-
+///
 import React from 'react';
 import { Target } from 'lucide-react';
 
 const milestones = [
   {
-    year: "2008",
+    year: "2017",
     title: "Company Founded",
     description: "Farhan Transport was established with a vision to provide reliable and efficient transportation services."
   },
   {
-    year: "2012",
+    year: "2019",
     title: "Expanded Services",
     description: "Added international shipping services to our portfolio, extending our reach beyond national borders."
   },
   {
-    year: "2015",
+    year: "2022",
     title: "Fleet Expansion",
     description: "Significantly increased our fleet size and introduced advanced tracking technology for enhanced service quality."
   },
   {
-    year: "2018",
+    year: "2024",
     title: "Industry Recognition",
     description: "Received multiple industry awards for excellence in logistics and customer service."
   },
   {
-    year: "2022",
+    year: "2025",
     title: "Sustainability Initiative",
     description: "Launched our eco-friendly transportation program, incorporating electric vehicles and carbon offset measures."
   }
@@ -98,3 +98,4 @@ export const AboutTimeline = () => {
     </>
   );
 };
+///
