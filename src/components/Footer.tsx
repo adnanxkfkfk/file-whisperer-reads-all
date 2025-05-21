@@ -1,6 +1,5 @@
-
 import { Link } from "react-router-dom";
-import { Phone, Mail, MapPin, Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
+import { Phone, Mail, MapPin, Linkedin } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -25,25 +24,26 @@ const Footer = () => {
             </div>
             <p className="text-custom-white/80 mb-4">
               Providing reliable transportation solutions with a commitment to excellence, safety, and customer satisfaction.
-            </p> 
+            </p>
             <div className="flex space-x-4">
-  <a
-    href="https://www.linkedin.com/company/farhan-transport-service/"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="text-custom-green-light hover:text-custom-green transition-colors"
-  >
-    <Linkedin size={20} />
-  </a>
-  <a
-    href="https://www.justdial.com/Mumbai/Farhan-Transport-Service-Near-Jain-Mandir-Vikhroli-West/022PXX22-XX22-200211111113-C8Q9_BZDET?utm_campaign=dtlpg-top&utm_medium=2&utm_source=share&rand3=&rand2=&rand1="
-    target="_blank"
-    rel="noopener noreferrer"
-    className="text-custom-green-light hover:text-custom-green transition-colors"
-  >
-    <span className="font-bold text-sm">Justdial</span>
-  </a>
-</div>
+              <a
+                href="https://www.linkedin.com/company/farhan-transport-service/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-custom-green-light hover:text-custom-green transition-colors"
+              >
+                <Linkedin size={20} />
+              </a>
+              <a
+                href="https://www.justdial.com/Mumbai/Farhan-Transport-Service-Near-Jain-Mandir-Vikhroli-West/022PXX22-XX22-200211111113-C8Q9_BZDET?utm_campaign=dtlpg-top&utm_medium=2&utm_source=share&rand3=&rand2=&rand1="
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-custom-green-light hover:text-custom-green transition-colors"
+              >
+                <span className="font-bold text-sm">Justdial</span>
+              </a>
+            </div>
+          </div>
 
           {/* Column 2 - Quick Links */}
           <div>
