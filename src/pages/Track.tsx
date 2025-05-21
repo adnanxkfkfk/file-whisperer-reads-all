@@ -2,15 +2,16 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { MapPin, Package, Truck, Clock, Search, CheckCircle, Calendar, ArrowRight, Info } from "lucide-react";
+import { MapPin, Package, Truck, Clock, Search, CheckCircle, Calendar, ArrowRight, Info, RefreshCw } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { trackBooking, TrackingResponse } from "@/integrations/fts-api/client";
+import { trackBooking, TrackingResponse, TrackingStatusItem } from "@/integrations/fts-api/client";
 import { format, parseISO } from "date-fns";
 import { toast } from "@/components/ui/use-toast";
 import { Badge } from "@/components/ui/badge";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const Track = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -41,6 +42,8 @@ const Track = () => {
         });
       }
     },
+    staleTime: 1000 * 60 * 5, // 5 minutes
+    gcTime: 1000 * 60 * 10, // 10 minutes
   });
 
   const handleTrack = () => {
@@ -69,61 +72,147 @@ const Track = () => {
     }
   };
 
-  const getStatusColor = (index: number) => {
-    if (index === 0) return "bg-green-500 text-white";
-    if (index === 1) return "bg-blue-500 text-white";
-    return "bg-transport-700 text-white";
+  const getStatusColor = (index: number, totalItems: number): string => {
+    // More specific status colors
+    if (index === 0) return "bg-green-500 text-white"; // Current status
+    if (index === totalItems - 1) return "bg-blue-500 text-white"; // First status (order received)
+    if (index === 1) return "bg-yellow-500 text-white"; // Second most recent
+    return "bg-transport-700 text-white"; // Other statuses
+  };
+
+  const getStatusBadge = (data: TrackingResponse): JSX.Element => {
+    const status = data.track.length > 0 ? data.track[0].status.toLowerCase() : "pending";
+    
+    if (status.includes("delivered")) {
+      return <Badge className="bg-green-500">Delivered</Badge>;
+    } else if (status.includes("transit")) {
+      return <Badge className="bg-blue-500">In Transit</Badge>;
+    } else if (status.includes("process")) {
+      return <Badge className="bg-yellow-500">Processing</Badge>;
+    } else if (status.includes("delay")) {
+      return <Badge className="bg-orange-500">Delayed</Badge>;
+    } else if (status.includes("exception") || status.includes("issue")) {
+      return <Badge className="bg-red-500">Exception</Badge>;
+    }
+    
+    return <Badge variant="secondary">Active</Badge>;
+  };
+
+  const renderTrackingDetailsCard = (data: TrackingResponse) => {
+    return (
+      <Card className="overflow-hidden border-transport-200 shadow-md hover:shadow-lg transition-shadow duration-300">
+        <CardHeader className="bg-gradient-to-r from-transport-100 to-transport-50 border-b border-transport-200">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+              <CardTitle className="text-xl font-bold text-transport-900 flex items-center gap-2">
+                Order Details
+                {getStatusBadge(data)}
+              </CardTitle>
+              <p className="text-sm text-gray-600 mt-1">Last updated: {data.track.length > 0 ? formatDateTime(data.track[0].time) : "N/A"}</p>
+            </div>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="text-xs flex items-center gap-1 hover:bg-transport-100"
+                    onClick={() => {
+                      refetch();
+                      toast({
+                        title: "Refreshing tracking information",
+                        description: "Getting the latest updates for your shipment"
+                      });
+                    }}
+                  >
+                    <RefreshCw className="h-3 w-3" />
+                    Refresh Status
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Get the latest tracking updates</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </div>
+        </CardHeader>
+        <CardContent className="p-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="p-4 rounded-lg bg-transport-50 border border-transport-100 hover:shadow-md transition-all duration-300">
+              <div className="flex items-center gap-2 mb-2">
+                <Package className="h-5 w-5 text-transport-700" />
+                <p className="text-gray-500 font-medium">Order ID</p>
+              </div>
+              <p className="font-bold text-transport-900 text-lg">{data.orderid}</p>
+            </div>
+            <div className="p-4 rounded-lg bg-transport-50 border border-transport-100 hover:shadow-md transition-all duration-300">
+              <div className="flex items-center gap-2 mb-2">
+                <MapPin className="h-5 w-5 text-transport-700" />
+                <p className="text-gray-500 font-medium">Customer</p>
+              </div>
+              <p className="font-bold text-transport-900 text-lg">{data.name}</p>
+            </div>
+            <div className="p-4 rounded-lg bg-transport-50 border border-transport-100 hover:shadow-md transition-all duration-300">
+              <div className="flex items-center gap-2 mb-2">
+                <Clock className="h-5 w-5 text-transport-700" />
+                <p className="text-gray-500 font-medium">Contact</p>
+              </div>
+              <p className="font-bold text-transport-900 text-lg">{data.mobile}</p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  };
+
+  const renderTrackingTimeline = (items: TrackingStatusItem[]) => {
+    return (
+      <div className="relative">
+        {items.map((item, index) => (
+          <div key={index} className="flex mb-8 relative group">
+            <div className="mr-4">
+              <div className={`h-10 w-10 rounded-full ${getStatusColor(index, items.length)} flex items-center justify-center border-2 border-white shadow-md group-hover:scale-110 transition-transform duration-300`}>
+                {index === 0 ? (
+                  <CheckCircle className="h-5 w-5" />
+                ) : (
+                  <Truck className="h-5 w-5" />
+                )}
+              </div>
+              {index < items.length - 1 && (
+                <div className="h-full w-0.5 bg-transport-200 absolute left-5 top-10 ml-[0.35rem] group-hover:bg-transport-300 transition-colors duration-300" />
+              )}
+            </div>
+            <div className="flex-1">
+              <div className="bg-white p-5 rounded-lg border border-transport-100 group-hover:border-transport-300 transition-all duration-300 shadow-sm group-hover:shadow-md">
+                <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-2 mb-2">
+                  <h4 className="font-semibold text-transport-800 text-lg">{item.status}</h4>
+                  <div className="flex items-center gap-1 text-sm text-gray-500">
+                    <Calendar className="h-4 w-4" />
+                    <span>{formatDateTime(item.time)}</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 mt-3">
+                  <ArrowRight className="h-4 w-4 text-transport-600" />
+                  <p className="text-sm text-gray-600">
+                    {index === 0 
+                      ? "Current status of your shipment" 
+                      : index === items.length - 1 
+                        ? "Order received" 
+                        : `Step ${items.length - index} of ${items.length}`}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
   };
 
   const renderTrackingDetails = (data: TrackingResponse) => {
     return (
       <div className="space-y-8 mt-6 animate-fade-in">
-        <Card className="overflow-hidden border-transport-200 shadow-md hover:shadow-lg transition-shadow duration-300">
-          <CardHeader className="bg-gradient-to-r from-transport-100 to-transport-50 border-b border-transport-200">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-              <CardTitle className="text-xl font-bold text-transport-900">
-                Order Details
-                <Badge variant="secondary" className="ml-3 font-normal">
-                  {data.track.length > 0 ? "Active" : "Pending"}
-                </Badge>
-              </CardTitle>
-              <Button 
-                variant="outline" 
-                size="sm" 
-                className="text-xs flex items-center gap-1 hover:bg-transport-100"
-                onClick={() => refetch()}
-              >
-                <Clock className="h-3 w-3" />
-                Refresh Status
-              </Button>
-            </div>
-          </CardHeader>
-          <CardContent className="p-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="p-4 rounded-lg bg-transport-50 border border-transport-100 hover:shadow-md transition-all duration-300">
-                <div className="flex items-center gap-2 mb-2">
-                  <Package className="h-5 w-5 text-transport-700" />
-                  <p className="text-gray-500 font-medium">Order ID</p>
-                </div>
-                <p className="font-bold text-transport-900 text-lg">{data.orderid}</p>
-              </div>
-              <div className="p-4 rounded-lg bg-transport-50 border border-transport-100 hover:shadow-md transition-all duration-300">
-                <div className="flex items-center gap-2 mb-2">
-                  <MapPin className="h-5 w-5 text-transport-700" />
-                  <p className="text-gray-500 font-medium">Customer</p>
-                </div>
-                <p className="font-bold text-transport-900 text-lg">{data.name}</p>
-              </div>
-              <div className="p-4 rounded-lg bg-transport-50 border border-transport-100 hover:shadow-md transition-all duration-300">
-                <div className="flex items-center gap-2 mb-2">
-                  <Clock className="h-5 w-5 text-transport-700" />
-                  <p className="text-gray-500 font-medium">Contact</p>
-                </div>
-                <p className="font-bold text-transport-900 text-lg">{data.mobile}</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        {renderTrackingDetailsCard(data)}
 
         <Card className="overflow-hidden border-transport-200 shadow-md hover:shadow-lg transition-shadow duration-300">
           <CardHeader className="bg-gradient-to-r from-transport-100 to-transport-50 border-b border-transport-200">
@@ -138,47 +227,7 @@ const Track = () => {
                 <p className="text-lg font-semibold text-transport-800 mb-2">No tracking information available yet.</p>
                 <p className="text-sm text-gray-500 max-w-md">Your order has been received and will be processed soon. Check back later for updates on your shipment.</p>
               </div>
-            ) : (
-              <div className="relative">
-                {data.track.map((item, index) => (
-                  <div key={index} className="flex mb-8 relative group">
-                    <div className="mr-4">
-                      <div className={`h-10 w-10 rounded-full ${getStatusColor(index)} flex items-center justify-center border-2 border-white shadow-md group-hover:scale-110 transition-transform duration-300`}>
-                        {index === 0 ? (
-                          <CheckCircle className="h-5 w-5" />
-                        ) : (
-                          <Truck className="h-5 w-5" />
-                        )}
-                      </div>
-                      {index < data.track.length - 1 && (
-                        <div className="h-full w-0.5 bg-transport-200 absolute left-5 top-10 ml-[0.35rem]" />
-                      )}
-                    </div>
-                    <div className="flex-1">
-                      <div className="bg-white p-5 rounded-lg border border-transport-100 group-hover:border-transport-300 transition-all duration-300 shadow-sm group-hover:shadow-md">
-                        <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-2 mb-2">
-                          <h4 className="font-semibold text-transport-800 text-lg">{item.status}</h4>
-                          <div className="flex items-center gap-1 text-sm text-gray-500">
-                            <Calendar className="h-4 w-4" />
-                            <span>{formatDateTime(item.time)}</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-2 mt-3">
-                          <ArrowRight className="h-4 w-4 text-transport-600" />
-                          <p className="text-sm text-gray-600">
-                            {index === 0 
-                              ? "Current status of your shipment" 
-                              : index === data.track.length - 1 
-                                ? "Order received" 
-                                : `Step ${data.track.length - index} of ${data.track.length}`}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
+            ) : renderTrackingTimeline(data.track)}
           </CardContent>
         </Card>
       </div>
