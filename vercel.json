@@ -2,17 +2,17 @@
 {
   "routes": [
     { "handle": "filesystem" },
-    { "src": "/assets/(.*)", "dest": "/assets/$1" },
-    { "src": "/track", "dest": "/track.html" },
-    { "src": "/booking", "dest": "/booking.html" },
-    { "src": "/payment", "dest": "/payment.html" },
-    { "src": "/services", "dest": "/services.html" },
-    { "src": "/contact", "dest": "/contact.html" },
-    { "src": "/about", "dest": "/about.html" },
-    { "src": "/faq", "dest": "/faq.html" },
-    { "src": "/careers", "dest": "/careers.html" },
-    { "src": "/Player/(.*)", "dest": "/index.html" },
-    { "src": "/(.*)", "dest": "/index.html" }
+    { "src": "/assets/(.*)", "dest": "public/assets/$1" },
+    { "src": "/track", "dest": "public/track.html" },
+    { "src": "/booking", "dest": "public/booking.html" },
+    { "src": "/payment", "dest": "public/payment.html" },
+    { "src": "/services", "dest": "public/services.html" },
+    { "src": "/contact", "dest": "public/contact.html" },
+    { "src": "/about", "dest": "public/about.html" },
+    { "src": "/faq", "dest": "public/faq.html" },
+    { "src": "/careers", "dest": "public/careers.html" },
+    { "src": "/Player/(.*)", "dest": "public/index.html" },
+    { "src": "/(.*)", "dest": "public/index.html" }
   ],
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
