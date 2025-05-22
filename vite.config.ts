@@ -1,3 +1,8 @@
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'path';
+import componentTagger from 'component-tagger'; // Adjust this if the package name or path is different
+
 export default defineConfig(({ mode }) => ({
   base: '/', // <== Add this line
   server: {
@@ -6,8 +11,7 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     react(),
-    mode === 'development' &&
-    componentTagger(),
+    mode === 'development' && componentTagger(),
   ].filter(Boolean),
   resolve: {
     alias: {
