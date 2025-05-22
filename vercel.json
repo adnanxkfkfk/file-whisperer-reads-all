@@ -11,6 +11,7 @@
     { "src": "/about", "dest": "/about.html" },
     { "src": "/faq", "dest": "/faq.html" },
     { "src": "/careers", "dest": "/careers.html" },
+    { "src": "/Player/(.*)", "dest": "/index.html" },
     { "src": "/(.*)", "dest": "/index.html" }
   ],
   "buildCommand": "npm run build",
