@@ -41,7 +41,7 @@ const App = () => {
             <Route path="/faq" element={<FAQPage />} />
             <Route path="/careers" element={<CareersPage />} />
             <Route path="/Player/:id" element={<Track />} />
-            {/* Catch all routes */}
+            {/* Catch all routes, including deep links like /Player/6 */}
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Toaster />
