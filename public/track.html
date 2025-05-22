@@ -13,12 +13,50 @@
     <meta property="og:type" content="website" />
     <!-- Script for "Pick and Edit" functionality -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
-    <!-- Direct redirect to the SPA route -->
-    <script>
-      window.location.href = "/track";
-    </script>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f6ff;
+        flex-direction: column;
+      }
+      .redirect-message {
+        text-align: center;
+        max-width: 500px;
+        padding: 20px;
+      }
+      .spinner {
+        border: 4px solid rgba(0, 0, 0, 0.1);
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border-left-color: #09f;
+        animation: spin 1s linear infinite;
+        margin: 20px auto;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    </style>
   </head>
   <body>
-    <p>Redirecting to tracking page...</p>
+    <div class="redirect-message">
+      <h2>Track Your Shipment</h2>
+      <p>Please wait while we redirect you to our tracking page...</p>
+      <div class="spinner"></div>
+    </div>
+    
+    <script>
+      // Use window.location.replace instead of window.location.href to prevent adding to browser history
+      setTimeout(function() {
+        window.location.replace('/');
+      }, 1500);
+    </script>
   </body>
 </html>

@@ -1,16 +1,10 @@
+
 {
   "rewrites": [
-    { "source": "/assets/(.*)", "destination": "/public/assets/$1" },
-    { "source": "/track", "destination": "/public/track.html" },
-    { "source": "/booking", "destination": "/public/booking.html" },
-    { "source": "/payment", "destination": "/public/payment.html" },
-    { "source": "/services", "destination": "/public/services.html" },
-    { "source": "/contact", "destination": "/public/contact.html" },
-    { "source": "/about", "destination": "/public/about.html" },
-    { "source": "/faq", "destination": "/public/faq.html" },
-    { "source": "/careers", "destination": "/public/careers.html" },
-    { "source": "/Player/(.*)", "destination": "/public/index.html" },
-    { "source": "/(.*)", "destination": "/public/index.html" }
+    { "source": "/assets/(.*)", "destination": "/assets/$1" },
+    { "source": "/(.*)\\.html", "destination": "/$1.html" },
+    { "source": "/Player/(.*)", "destination": "/index.html" },
+    { "source": "/(.*)", "destination": "/index.html" }
   ],
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
