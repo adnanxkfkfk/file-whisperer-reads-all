@@ -28,6 +28,12 @@ export default defineConfig({
           charts: ['recharts']
         }
       }
+    },
+    terserOptions: {
+      compress: {
+        drop_console: false,
+        drop_debugger: true
+      }
     }
   }
 })
