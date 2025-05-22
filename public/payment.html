@@ -7,16 +7,18 @@
     <title>Make a Payment | Farhan Transport Service Mumbai</title>
     <meta name="description" content="Secure payment options for Farhan Transport Service Mumbai. Pay for transport services using UPI, cards, and other methods." />
     <link rel="icon" href="/logo.png" type="image/png">
-    <!-- Redirect to the main app with the payment route -->
-    <meta http-equiv="refresh" content="0;url=/#/payment">
+    <!-- OpenGraph tags for social sharing -->
+    <meta property="og:title" content="Make a Payment | Farhan Transport Service" />
+    <meta property="og:description" content="Secure payment options for transport services using UPI, cards, and other payment methods" />
+    <meta property="og:type" content="website" />
     <!-- Script for "Pick and Edit" functionality -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
+    <!-- Direct redirect to the SPA route -->
+    <script>
+      window.location.href = "/payment";
+    </script>
   </head>
   <body>
     <p>Redirecting to payment page...</p>
-    <script>
-      // For modern browsers that support history API
-      window.location.href = "/payment";
-    </script>
   </body>
 </html>
