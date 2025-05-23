@@ -9,7 +9,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { createBooking } from "@/integrations/fts-api/client"; 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import BookingFormSkeleton from "./BookingFormSkeleton";
 import {
   Form,
   FormControl,
@@ -77,7 +76,7 @@ const BookingForm = () => {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Get service types with proper typing and optimized fetching
+  // Get service types with proper typing
   const { data: serviceTypes, isLoading: isLoadingServiceTypes } = useQuery({
     queryKey: ["serviceTypes"],
     queryFn: async () => {
@@ -91,8 +90,6 @@ const BookingForm = () => {
       }
       return data as ServiceType[];
     },
-    staleTime: 5 * 60 * 1000, // Cache for 5 minutes
-    retry: 2,
   });
 
   const form = useForm<FormValues>({
@@ -199,9 +196,12 @@ const BookingForm = () => {
     }
   };
 
-  // Show skeleton during loading
   if (isLoadingServiceTypes) {
-    return <BookingFormSkeleton />;
+    return (
+      <div className="text-center py-10">
+        <p>Loading service types...</p>
+      </div>
+    );
   }
 
   return (

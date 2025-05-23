@@ -1,6 +1,5 @@
 
 // FTS API Client 
-import { get, post } from "@/lib/request";
 
 /**
  * Base URL for the FTS API
@@ -89,25 +88,24 @@ export interface TrackingResponse {
 }
 
 /**
- * Create a new booking with optimized request config
+ * Create a new booking
  */
 export async function createBooking(data: BookingRequest): Promise<BookingResponse> {
   try {
-    // Use a 10 second timeout for this important API call
-    const response = await post(`${FTS_API_BASE_URL}/book`, data, {
+    const response = await fetch(`${FTS_API_BASE_URL}/book`, {
+      method: "POST",
       headers: {
-        'Priority': 'high',  // Hint to the browser that this request is high priority
-      }
-    }, {
-      // Apply custom rate limit settings
-      rateLimit: {
-        limit: 3,
-        timeWindow: 60000 // 1 minute
+        "Content-Type": "application/json",
       },
-      // Improve performance by using a longer timeout for this critical operation
-      timeout: 10000 // 10 seconds
+      body: JSON.stringify(data),
     });
-    return response.data;
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Booking failed: ${response.status} - ${errorText}`);
+    }
+
+    return await response.json();
   } catch (error) {
     console.error("Error creating booking:", error);
     throw error;
@@ -115,20 +113,18 @@ export async function createBooking(data: BookingRequest): Promise<BookingRespon
 }
 
 /**
- * Track an existing booking by order ID with optimized configuration
+ * Track an existing booking by order ID
  */
 export async function trackBooking(orderId: string): Promise<TrackingResponse> {
   try {
-    // Configure caching for tracking requests since they can be called frequently
-    const response = await get(`${FTS_API_BASE_URL}/track?orderid=${orderId}`, {
-      headers: {
-        'Cache-Control': 'max-age=30', // Cache for 30 seconds
-      }
-    }, {
-      // Cache successful responses
-      useCache: true
-    });
-    return response.data;
+    const response = await fetch(`${FTS_API_BASE_URL}/track?orderid=${orderId}`);
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Tracking failed: ${response.status} - ${errorText}`);
+    }
+
+    return await response.json();
   } catch (error) {
     console.error("Error tracking booking:", error);
     throw error;
@@ -136,21 +132,18 @@ export async function trackBooking(orderId: string): Promise<TrackingResponse> {
 }
 
 /**
- * Validate pin code (postal code) with optimized configuration
- * Uses a higher rate limit since this might be called often during form filling
+ * Validate pin code (postal code)
  */
 export async function validatePinCode(pincode: string): Promise<boolean> {
   try {
-    const response = await get(`${FTS_API_BASE_URL}/validate-pincode?pincode=${pincode}`, {}, {
-      // Configure higher rate limit for form validation
-      rateLimit: {
-        limit: 10,
-        timeWindow: 60000 // 1 minute
-      },
-      useCache: true, // Cache responses for better performance
-      timeout: 5000 // 5 second timeout for validation calls
-    });
-    return response.data.valid;
+    const response = await fetch(`${FTS_API_BASE_URL}/validate-pincode?pincode=${pincode}`);
+    
+    if (!response.ok) {
+      return false;
+    }
+    
+    const data = await response.json();
+    return data.valid === true;
   } catch (error) {
     console.error("Error validating pincode:", error);
     return false;
