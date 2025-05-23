@@ -1,3 +1,4 @@
+
 // FTS API Client 
 import { get, post } from "@/lib/request";
 
@@ -140,4 +141,18 @@ export async function trackBooking(orderId: string): Promise<TrackingResponse> {
  */
 export async function validatePinCode(pincode: string): Promise<boolean> {
   try {
-    const response =
+    const response = await get(`${FTS_API_BASE_URL}/validate-pincode?pincode=${pincode}`, {}, {
+      // Configure higher rate limit for form validation
+      rateLimit: {
+        limit: 10,
+        timeWindow: 60000 // 1 minute
+      },
+      useCache: true, // Cache responses for better performance
+      timeout: 5000 // 5 second timeout for validation calls
+    });
+    return response.data.valid;
+  } catch (error) {
+    console.error("Error validating pincode:", error);
+    return false;
+  }
+}
