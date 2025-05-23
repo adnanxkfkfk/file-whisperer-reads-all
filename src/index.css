@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
 
 @tailwind base;
@@ -39,14 +40,44 @@
 
   * {
     @apply border-gray-200;
+    scroll-behavior: smooth;
+  }
+
+  html {
+    scroll-padding-top: 80px; /* Ensure anchor links scroll to correct position */
   }
 
   body {
     @apply bg-[#F0F6FF] text-foreground font-inter;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-montserrat font-bold;
+  }
+  
+  /* Focus styles for better accessibility */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-transport-600;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-transport-50;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-transport-300 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-transport-400;
   }
 }
 
@@ -74,6 +105,7 @@
   @apply bg-gradient-to-br from-white via-white/90 to-white/70 bg-clip-text text-transparent;
 }
 
+/* Enhanced animations */
 @keyframes float {
   0% {
     transform: translateY(0px);
@@ -106,10 +138,64 @@
   animation: glow 3s infinite;
 }
 
+@keyframes pulse-border {
+  0% {
+    box-shadow: 0 0 0 0 rgba(45, 59, 198, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(45, 59, 198, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(45, 59, 198, 0);
+  }
+}
+
+.animate-pulse-border {
+  animation: pulse-border 2s infinite;
+}
+
+@keyframes slide-in-bottom {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in-bottom {
+  animation: slide-in-bottom 0.5s ease-out forwards;
+}
+
 .glass {
   @apply bg-transport-50/10 backdrop-blur-lg border border-transport-100/20 rounded-2xl;
 }
 
 .hover-lift {
   @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+}
+
+/* Improved card hover effects */
+.card-hover {
+  @apply transition-all duration-300 hover:shadow-md hover:shadow-transport-200/50;
+}
+
+/* Button hover effects */
+.btn-hover {
+  @apply relative overflow-hidden transition-all duration-300;
+}
+
+.btn-hover::after {
+  @apply content-[''] absolute top-0 left-0 w-full h-full bg-white opacity-0 transition-opacity duration-300;
+}
+
+.btn-hover:hover::after {
+  @apply opacity-20;
+}
+
+/* Improved form elements */
+.form-input-focus {
+  @apply focus:border-transport-600 focus:ring focus:ring-transport-200 focus:ring-opacity-50;
 }
