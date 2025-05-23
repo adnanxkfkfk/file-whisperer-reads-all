@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { 
@@ -9,7 +8,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { AlertCircle, Loader2, CheckCircle2, Zap } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { secureFetch, checkRateLimit } from "@/lib/api-protection";
+import { post } from "@/lib/request";
 
 interface OtpVerificationProps {
   phoneNumber: string;
@@ -55,11 +54,6 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
       return;
     }
 
-    // Check for rate limiting
-    if (!checkRateLimit("send-otp", 3, 60000)) {
-      return;
-    }
-
     setSendingOtp(true);
     setVerificationError(null); // Clear any previous errors
 
@@ -68,19 +62,9 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
       
       console.log("Sending OTP request with phone:", formattedPhone);
       
-      const response = await secureFetch("https://aqualemur.onpella.app/otp", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-        },
-        body: JSON.stringify({ phone: formattedPhone }),
-      });
-
-      console.log("OTP response status:", response.status);
+      const { data } = await post("https://aqualemur.onpella.app/otp", { phone: formattedPhone });
       
-      const result = await response.json();
-      console.log("OTP API response:", result);
+      console.log("OTP API response:", data);
       
       toast({
         title: "OTP Sent",
@@ -118,32 +102,22 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
       
       console.log("Sending verification request with data:", { phone: formattedPhone, otp });
       
-      const response = await secureFetch("https://aqualemur.onpella.app/verify", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-        },
-        body: JSON.stringify({ phone: formattedPhone, otp }),
-      });
-
-      console.log("Verification response status:", response.status);
+      const { data } = await post("https://aqualemur.onpella.app/verify", { phone: formattedPhone, otp });
       
-      const result = await response.json();
-      console.log("Verification API response:", result);
+      console.log("Verification API response:", data);
       
-      if (result && result.verified === true) {
+      if (data && data.verified === true) {
         toast({
           title: "Phone Verified",
           description: "Your phone number has been successfully verified.",
-          variant: "success",
+          variant: "default",
         });
         onVerificationSuccess();
       } else {
-        setVerificationError(result.error || "Verification failed. Please try again.");
+        setVerificationError(data.error || "Verification failed. Please try again.");
         toast({
           title: "Verification Failed",
-          description: result.error || "The code you entered is incorrect. Please try again.",
+          description: data.error || "The code you entered is incorrect. Please try again.",
           variant: "destructive",
         });
       }

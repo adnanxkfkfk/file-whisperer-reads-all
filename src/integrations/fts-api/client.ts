@@ -1,5 +1,5 @@
-
 // FTS API Client 
+import { get, post } from "@/lib/request";
 
 /**
  * Base URL for the FTS API
@@ -92,20 +92,8 @@ export interface TrackingResponse {
  */
 export async function createBooking(data: BookingRequest): Promise<BookingResponse> {
   try {
-    const response = await fetch(`${FTS_API_BASE_URL}/book`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`Booking failed: ${response.status} - ${errorText}`);
-    }
-
-    return await response.json();
+    const response = await post(`${FTS_API_BASE_URL}/book`, data);
+    return response.data;
   } catch (error) {
     console.error("Error creating booking:", error);
     throw error;
@@ -117,14 +105,8 @@ export async function createBooking(data: BookingRequest): Promise<BookingRespon
  */
 export async function trackBooking(orderId: string): Promise<TrackingResponse> {
   try {
-    const response = await fetch(`${FTS_API_BASE_URL}/track?orderid=${orderId}`);
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`Tracking failed: ${response.status} - ${errorText}`);
-    }
-
-    return await response.json();
+    const response = await get(`${FTS_API_BASE_URL}/track?orderid=${orderId}`);
+    return response.data;
   } catch (error) {
     console.error("Error tracking booking:", error);
     throw error;
@@ -136,14 +118,8 @@ export async function trackBooking(orderId: string): Promise<TrackingResponse> {
  */
 export async function validatePinCode(pincode: string): Promise<boolean> {
   try {
-    const response = await fetch(`${FTS_API_BASE_URL}/validate-pincode?pincode=${pincode}`);
-    
-    if (!response.ok) {
-      return false;
-    }
-    
-    const data = await response.json();
-    return data.valid === true;
+    const response = await get(`${FTS_API_BASE_URL}/validate-pincode?pincode=${pincode}`);
+    return response.data.valid === true;
   } catch (error) {
     console.error("Error validating pincode:", error);
     return false;

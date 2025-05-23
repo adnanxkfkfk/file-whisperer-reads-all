@@ -1,5 +1,11 @@
 
+/**
+ * API Protection Utilities
+ * @deprecated Use src/lib/request.js instead
+ */
+
 import { toast } from "@/hooks/use-toast";
+import { request } from "./request.js";
 
 // Rate limiting cache
 interface RateLimitCache {
@@ -19,8 +25,11 @@ const DEFAULT_WINDOW = 60000; // 1 minute in ms
  * @param limit Maximum number of requests in the time window
  * @param timeWindow Time window in milliseconds
  * @returns Whether the request should proceed
+ * @deprecated Use request.js directly instead
  */
 export const checkRateLimit = (endpoint: string, limit = DEFAULT_LIMIT, timeWindow = DEFAULT_WINDOW): boolean => {
+  console.warn("api-protection.ts is deprecated. Use src/lib/request.js instead.");
+  
   const now = Date.now();
   
   // Initialize or reset expired entries
@@ -50,46 +59,11 @@ export const checkRateLimit = (endpoint: string, limit = DEFAULT_LIMIT, timeWind
 
 /**
  * Wrapper for fetch with additional security and error handling
+ * @deprecated Use request.js directly instead
  */
 export const secureFetch = async (url: string, options: RequestInit = {}) => {
-  // Generate a unique key for this endpoint
-  const endpoint = `${options.method || 'GET'}-${url.split('?')[0]}`;
+  console.warn("secureFetch is deprecated. Use src/lib/request.js instead.");
   
-  // Check rate limiting
-  if (!checkRateLimit(endpoint)) {
-    throw new Error("Rate limit exceeded");
-  }
-  
-  // Add security headers
-  const secureOptions: RequestInit = {
-    ...options,
-    headers: {
-      ...options.headers,
-      'X-Requested-With': 'XMLHttpRequest',
-    },
-    credentials: 'same-origin',
-  };
-  
-  try {
-    const response = await fetch(url, secureOptions);
-    
-    // Handle common HTTP errors
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => null);
-      const errorMessage = errorData?.message || `Error: ${response.status} ${response.statusText}`;
-      
-      toast({
-        title: "Request failed",
-        description: errorMessage,
-        variant: "destructive"
-      });
-      
-      throw new Error(errorMessage);
-    }
-    
-    return response;
-  } catch (error) {
-    console.error("API request failed:", error);
-    throw error;
-  }
+  // Forward to new request system
+  return request(url, options).then(response => response.response);
 };
