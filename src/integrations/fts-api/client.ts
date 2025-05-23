@@ -88,11 +88,24 @@ export interface TrackingResponse {
 }
 
 /**
- * Create a new booking
+ * Create a new booking with optimized request config
  */
 export async function createBooking(data: BookingRequest): Promise<BookingResponse> {
   try {
-    const response = await post(`${FTS_API_BASE_URL}/book`, data);
+    // Use a 10 second timeout for this important API call
+    const response = await post(`${FTS_API_BASE_URL}/book`, data, {
+      headers: {
+        'Priority': 'high',  // Hint to the browser that this request is high priority
+      }
+    }, {
+      // Apply custom rate limit settings
+      rateLimit: {
+        limit: 3,
+        timeWindow: 60000 // 1 minute
+      },
+      // Improve performance by using a longer timeout for this critical operation
+      timeout: 10000 // 10 seconds
+    });
     return response.data;
   } catch (error) {
     console.error("Error creating booking:", error);
@@ -101,11 +114,19 @@ export async function createBooking(data: BookingRequest): Promise<BookingRespon
 }
 
 /**
- * Track an existing booking by order ID
+ * Track an existing booking by order ID with optimized configuration
  */
 export async function trackBooking(orderId: string): Promise<TrackingResponse> {
   try {
-    const response = await get(`${FTS_API_BASE_URL}/track?orderid=${orderId}`);
+    // Configure caching for tracking requests since they can be called frequently
+    const response = await get(`${FTS_API_BASE_URL}/track?orderid=${orderId}`, {
+      headers: {
+        'Cache-Control': 'max-age=30', // Cache for 30 seconds
+      }
+    }, {
+      // Cache successful responses
+      useCache: true
+    });
     return response.data;
   } catch (error) {
     console.error("Error tracking booking:", error);
@@ -114,14 +135,9 @@ export async function trackBooking(orderId: string): Promise<TrackingResponse> {
 }
 
 /**
- * Validate pin code (postal code)
+ * Validate pin code (postal code) with optimized configuration
+ * Uses a higher rate limit since this might be called often during form filling
  */
 export async function validatePinCode(pincode: string): Promise<boolean> {
   try {
-    const response = await get(`${FTS_API_BASE_URL}/validate-pincode?pincode=${pincode}`);
-    return response.data.valid === true;
-  } catch (error) {
-    console.error("Error validating pincode:", error);
-    return false;
-  }
-}
+    const response =
