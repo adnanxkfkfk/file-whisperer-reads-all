@@ -136,8 +136,7 @@ const OtpVerification = ({ phoneNumber, onVerificationSuccess, onCancel }: OtpVe
         toast({
           title: "Phone Verified",
           description: "Your phone number has been successfully verified.",
-          // Changed from "success" to "default" as that's an accepted variant
-          variant: "default", 
+          variant: "success",
         });
         onVerificationSuccess();
       } else {
