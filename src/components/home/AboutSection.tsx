@@ -21,13 +21,13 @@ const AboutSection = () => {
           <div className="relative">
             <div className="grid grid-cols-2 gap-4">
               <img
-                src="https://images.unsplash.com/photo-1562078809-77187a7eb124?ixlib=rb-4.0.3&auto=format&fit=crop&w=774&h=900&q=80"
+                src="https://tenjku.rf.gd/file_00000000f9c061f7b9dc433848f01b05.png"
                 alt="Farhan Transport Service Mumbai warehouse"
                 className="rounded-lg object-cover w-full h-full shadow-md"
               />
               <div className="space-y-4">
                 <img
-                  src="https://images.unsplash.com/photo-1600706432774-bc9518b558cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=774&h=450&q=80"
+                  src="https://tenjku.rf.gd/file_00000000f79c61fd832b77e7fae08908.png"
                   alt="Farhan Transport Service truck Maharashtra"
                   className="rounded-lg object-cover w-full h-[48%] shadow-md"
                 />
